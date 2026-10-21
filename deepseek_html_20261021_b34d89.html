@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0f0c">
+<title>22-я ОГШБр · Учебный центр</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0f0c; --bg2:#141813; --panel:#1a1f18; --line:#2b3427;
+  --olive:#4a5d3a; --olive2:#5f7a49; --gold:#c8a84b; --gold2:#e0c060;
+  --red:#8b2e2e; --red2:#a83232; --red3:#d94040;
+  --t:#d9ddd3; --m:#8a9384; --ok:#6ea05a; --warn:#c8a84b;
+  --f:'Roboto Condensed','Oswald','Arial Narrow',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Consolas','Courier New',monospace;
+}
+html,body{background:var(--bg)}
+body{
+  font-family:var(--f);color:var(--t);min-height:100vh;
+  background-image:
+    linear-gradient(rgba(74,93,58,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(74,93,58,.05) 1px,transparent 1px),
+    radial-gradient(ellipse at top,#1a2118 0%,#0d0f0c 60%);
+  background-size:32px 32px,32px 32px,100% 100%;
+  padding:16px 12px 60px;
+  -webkit-text-size-adjust:100%;line-height:1.55;
+  user-select:none;-webkit-user-select:none;
+}
+input,textarea{user-select:text;-webkit-user-select:text}
+.wrap{max-width:820px;margin:0 auto}
+
+/* --- Header --- */
+.hdr{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;margin-bottom:18px;
+  border:1px solid var(--line);border-left:3px solid var(--gold);
+  background:linear-gradient(90deg,var(--panel),var(--bg2));
+}
+.hdr .em{font-size:28px;line-height:1}
+.hdr .tx{flex:1;min-width:0}
+.hdr h1{font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.hdr p{font-size:11px;color:var(--m);letter-spacing:.08em;margin-top:2px}
+.hdr .stamp{
+  font-family:var(--mono);font-size:10px;color:var(--red3);
+  border:1px solid var(--red);padding:3px 7px;letter-spacing:.15em;
+  transform:rotate(-2deg);white-space:nowrap;animation:stampPulse 3s infinite;
+}
+@keyframes stampPulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* --- Nav --- */
+.nav{
+  display:flex;gap:6px;margin-bottom:18px;
+  background:var(--bg2);border:1px solid var(--line);padding:5px;
+}
+.nav button{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 8px;background:transparent;border:1px solid transparent;
+  color:var(--m);font-family:var(--f);font-size:12px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.nav button:hover{color:var(--t)}
+.nav button.on{background:var(--olive);border-color:var(--olive2);color:#f0f2ec}
+.nav button .n{
+  font-family:var(--mono);font-size:10px;
+  background:var(--bg);border:1px solid var(--line);
+  padding:1px 5px;border-radius:2px;
+}
+.nav button.on .n{background:#141813;border-color:#4a5d3a}
+
+/* --- Panel --- */
+.panel{
+  background:linear-gradient(180deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);padding:20px 18px;
+  box-shadow:0 8px 24px -12px #000;margin-bottom:14px;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel-h{
+  display:flex;align-items:center;gap:8px;justify-content:space-between;
+  padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line);
+}
+.panel-h > div:first-child{display:flex;align-items:center;gap:8px}
+.panel-h::before{
+  content:'';width:6px;height:6px;background:var(--gold);flex-shrink:0;
+  transform:rotate(45deg);order:-1;
+}
+.panel-h h2{font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:700}
+
+/* --- Form --- */
+label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:6px;font-weight:600}
+input,select{
+  width:100%;padding:12px 14px;background:#0a0c09;border:1px solid var(--line);
+  color:var(--t);font-family:var(--f);font-size:15px;font-weight:500;
+  outline:none;transition:border-color .2s;
+}
+input:focus,select:focus{border-color:var(--gold)}
+input::placeholder{color:#4a5245}
+input.error{border-color:var(--red3)}
+select{cursor:pointer;-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='%23c8a84b'><path d='M6 8L0 0h12z'/></svg>");
+  background-repeat:no-repeat;background-position:right 14px center;background-size:11px;padding-right:36px;
+}
+.field{margin-bottom:16px}
+.field-hint{font-size:11px;color:var(--m);margin-top:5px;line-height:1.4}
+.field-hint.err{color:var(--red3)}
+
+/* --- Buttons --- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px 20px;background:var(--olive);border:1px solid var(--olive2);
+  color:#f0f2ec;font-family:var(--f);font-size:14px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;cursor:pointer;
+  transition:background .18s,border-color .18s,transform .1s;
+}
+.btn:hover{background:var(--olive2)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--gold);color:#141813;border-color:var(--gold)}
+.btn.primary:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn.danger{background:var(--red);border-color:var(--red2)}
+.btn.danger:hover{background:var(--red2)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--m)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn.row{width:auto;flex:1;padding:12px 14px;font-size:12px}
+.btn-row{display:flex;gap:10px;margin-top:14px}
+
+/* --- Menu cards --- */
+.menu-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+.menu-card{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 16px;background:linear-gradient(180deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-left:3px solid var(--gold);
+  cursor:pointer;transition:transform .15s,border-color .15s,background .15s;
+  text-align:left;width:100%;
+}
+.menu-card:hover{border-left-color:var(--gold2);background:var(--bg2);transform:translateY(-1px)}
+.menu-card:active{transform:translateY(0)}
+.menu-card .ic{font-size:30px;line-height:1;flex-shrink:0}
+.menu-card .tx{flex:1;min-width:0}
+.menu-card .tx b{display:block;font-size:15px;font-weight:700;color:var(--t);letter-spacing:.02em}
+.menu-card .tx span{display:block;font-size:12px;color:var(--m);margin-top:2px;line-height:1.4}
+.menu-card .ar{
+  font-family:var(--mono);font-size:20px;color:var(--gold);
+  flex-shrink:0;transition:transform .15s;
+}
+.menu-card:hover .ar{transform:translateX(4px)}
+
+/* --- TOC --- */
+.toc{
+  background:#0a0c09;border:1px solid var(--line);
+  padding:16px 18px;margin-bottom:18px;
+}
+.toc h2{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.toc h2::before{
+  content:'';width:6px;height:6px;background:var(--gold);
+  transform:rotate(45deg);flex-shrink:0;
+}
+.toc ol{list-style:none;counter-reset:toc}
+.toc ol li{counter-increment:toc;margin-bottom:4px}
+.toc ol li a{
+  display:flex;align-items:baseline;gap:10px;
+  color:var(--t);text-decoration:none;font-size:13.5px;
+  padding:6px 8px;border-left:2px solid transparent;
+  transition:border-color .15s,background .15s;
+}
+.toc ol li a::before{
+  content:counter(toc,decimal-leading-zero);
+  font-family:var(--mono);font-size:11px;color:var(--gold);
+  font-weight:700;flex-shrink:0;
+}
+.toc ol li a:hover{border-left-color:var(--gold);background:var(--panel)}
+
+/* --- Section (методичка) --- */
+.sec{
+  background:linear-gradient(180deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);padding:22px 20px;margin-bottom:18px;
+  scroll-margin-top:16px;
+}
+.sec-h{
+  display:flex;align-items:center;gap:12px;
+  padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--line);
+}
+.sec-n{
+  flex-shrink:0;width:36px;height:36px;
+  background:var(--bg2);border:1px solid var(--gold);
+  color:var(--gold);font-family:var(--mono);font-size:14px;font-weight:700;
+  display:grid;place-items:center;
+}
+.sec-h h2{font-size:17px;font-weight:700;color:var(--t);letter-spacing:.02em}
+.sec-h .tag{
+  font-family:var(--mono);font-size:10px;color:var(--m);
+  letter-spacing:.1em;border:1px solid var(--line);
+  padding:2px 6px;margin-left:auto;flex-shrink:0;
+}
+.sec h3{
+  font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin:22px 0 10px;
+}
+.sec h3:first-of-type{margin-top:0}
+.sec p{margin-bottom:12px;font-size:14.5px}
+.sec p b{color:var(--gold);font-weight:700}
+.sec ul,.sec ol{margin:0 0 14px 20px}
+.sec li{margin-bottom:8px;font-size:14.5px}
+.sec li b{color:var(--gold);font-weight:700}
+
+/* --- Callouts --- */
+.note{
+  border-left:3px solid var(--gold);
+  background:#0a0c09;padding:12px 14px;margin:14px 0;
+  font-size:13.5px;line-height:1.5;
+}
+.note b{color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.08em;display:block;margin-bottom:4px;text-transform:uppercase}
+.note.warn{border-left-color:var(--red3)}
+.note.warn b{color:var(--red3)}
+.note.ok{border-left-color:var(--ok)}
+.note.ok b{color:var(--ok)}
+
+/* --- Steps --- */
+.steps{list-style:none;counter-reset:st;margin-left:0}
+.steps li{
+  counter-increment:st;position:relative;
+  padding:10px 0 10px 42px;
+  border-bottom:1px dashed var(--line);font-size:14.5px;
+}
+.steps li:last-child{border-bottom:0}
+.steps li::before{
+  content:counter(st,decimal-leading-zero);
+  position:absolute;left:0;top:10px;
+  width:28px;height:28px;
+  background:var(--bg2);border:1px solid var(--gold);
+  color:var(--gold);font-family:var(--mono);font-size:12px;font-weight:700;
+  display:grid;place-items:center;
+}
+
+/* --- Table --- */
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+.tbl th,.tbl td{
+  border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;
+}
+.tbl th{
+  background:#0a0c09;color:var(--gold);font-family:var(--mono);
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+}
+.tbl td b{color:var(--gold);font-weight:700}
+
+/* --- Back to test --- */
+.back{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;margin:14px 0;
+  background:#0a0c09;border:1px solid var(--line);border-left:3px solid var(--ok);
+  font-size:12px;color:var(--m);
+}
+.back .n{
+  font-family:var(--mono);font-size:13px;font-weight:800;
+  color:var(--ok);flex-shrink:0;
+}
+.back b{color:var(--ok)}
+
+/* --- Timer --- */
+.timer-bar{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;margin-bottom:18px;
+  background:#0a0c09;border:1px solid var(--line);border-left:3px solid var(--ok);
+  transition:border-color .3s,background .3s;
+}
+.timer-bar.warn{border-left-color:var(--warn);background:#1a1a0e}
+.timer-bar.danger{border-left-color:var(--red3);background:#1f0e0e;animation:timerPulse 1s infinite}
+@keyframes timerPulse{0%,100%{box-shadow:inset 0 0 0 0 rgba(217,64,64,.5)}50%{box-shadow:inset 0 0 0 2px rgba(217,64,64,.3)}}
+.timer-bar .ic{font-size:20px;line-height:1}
+.timer-bar .tx{flex:1}
+.timer-bar .lbl{font-size:10px;letter-spacing:.12em;color:var(--m);text-transform:uppercase;font-weight:700}
+.timer-bar .val{font-family:var(--mono);font-size:22px;font-weight:800;letter-spacing:.03em;line-height:1.1;color:var(--t)}
+.timer-bar.warn .val{color:var(--warn)}
+.timer-bar.danger .val{color:var(--red3)}
+.timer-bar .vio{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  color:var(--red3);border:1px solid var(--red);padding:4px 8px;text-transform:uppercase;white-space:nowrap;
+}
+
+/* --- Test --- */
+.test-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:11px;color:var(--m);
+  letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase;gap:8px;flex-wrap:wrap;
+}
+.test-meta b{color:var(--gold)}
+.progress{height:3px;background:#0a0c09;margin-bottom:22px;border:1px solid var(--line)}
+.progress i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+.q{margin-bottom:22px;padding-bottom:22px;border-bottom:1px dashed var(--line)}
+.q:last-child{border-bottom:0}
+.q-h{display:flex;gap:10px;margin-bottom:12px}
+.q-n{
+  flex-shrink:0;width:28px;height:28px;
+  background:var(--bg2);border:1px solid var(--gold);
+  color:var(--gold);font-family:var(--mono);font-size:12px;font-weight:700;
+  display:grid;place-items:center;
+}
+.q-t{font-size:15px;font-weight:600;line-height:1.4;padding-top:3px}
+.q-tag{
+  display:inline-block;font-family:var(--mono);font-size:10px;
+  color:var(--m);letter-spacing:.1em;margin-left:6px;
+  border:1px solid var(--line);padding:1px 5px;vertical-align:middle;
+}
+.opts{display:flex;flex-direction:column;gap:8px;margin-left:38px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:11px 14px;background:#0a0c09;border:1px solid var(--line);
+  cursor:pointer;transition:border-color .15s,background .15s;
+  font-size:14px;line-height:1.4;
+}
+.opt:hover{border-color:var(--olive2)}
+.opt input{display:none}
+.opt .box{
+  flex-shrink:0;width:16px;height:16px;margin-top:2px;
+  border:1px solid var(--m);display:grid;place-items:center;
+}
+.opt .box::after{content:'';width:8px;height:8px;background:var(--gold);display:none}
+.opt input:checked + .box{border-color:var(--gold)}
+.opt input:checked + .box::after{display:block}
+.opt:has(input:checked){border-color:var(--gold);background:#1a1a12}
+.opt .lbl{flex:1}
+
+/* --- Result --- */
+.score-big{
+  text-align:center;padding:28px 16px;margin-bottom:18px;
+  border:1px solid var(--line);background:#0a0c09;
+}
+.score-big .n{
+  font-family:var(--mono);font-size:64px;font-weight:800;
+  color:var(--gold);line-height:1;letter-spacing:-.03em;
+}
+.score-big .n small{font-size:28px;color:var(--m)}
+.score-big .v{
+  margin-top:10px;font-size:16px;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:700;
+}
+.score-big .bar{height:6px;background:var(--line);margin:18px auto 0;max-width:320px}
+.score-big .bar i{display:block;height:100%;transition:width .6s}
+.score-big.ok .v{color:var(--ok)} .score-big.ok .bar i{background:var(--ok)}
+.score-big.warn .v{color:var(--warn)} .score-big.warn .bar i{background:var(--warn)}
+.score-big.bad .v{color:var(--red3)} .score-big.bad .bar i{background:var(--red3)}
+.score-big.void{background:#1f0e0e;border-color:var(--red)}
+.score-big.void .n{color:var(--red3)}
+.score-big.void .v{color:var(--red3)}
+
+.report{
+  font-family:var(--mono);font-size:12.5px;line-height:1.65;
+  background:#000;color:#e8e8e8;
+  border:1px solid var(--line);border-left:3px solid var(--gold);
+  padding:16px 18px;white-space:pre-wrap;word-break:break-word;margin-bottom:14px;
+}
+.err-list{list-style:none;margin-top:10px}
+.err-list li{
+  padding:8px 12px;margin-bottom:6px;
+  background:#0a0c09;border-left:2px solid var(--red3);
+  font-size:13px;line-height:1.4;
+}
+.err-list li b{color:var(--red3);font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+.err-list li .corr{color:var(--ok);font-size:12px;margin-top:3px;display:block}
+
+/* --- Logs --- */
+.logs-empty{
+  text-align:center;padding:32px 16px;color:var(--m);font-size:13px;
+  border:1px dashed var(--line);background:#0a0c09;
+}
+.log-item{
+  background:#0a0c09;border:1px solid var(--line);
+  border-left:3px solid var(--gold);padding:12px 14px;margin-bottom:10px;
+}
+.log-item.void{border-left-color:var(--red3)}
+.log-item.bad{border-left-color:var(--red2)}
+.log-item.warn{border-left-color:var(--warn)}
+.log-item.ok{border-left-color:var(--ok)}
+.log-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.log-name{font-weight:700;font-size:14px;color:var(--t)}
+.log-score{font-family:var(--mono);font-size:14px;font-weight:800}
+.log-score.ok{color:var(--ok)} .log-score.warn{color:var(--warn)} .log-score.bad{color:var(--red3)}
+.log-meta{font-size:11px;color:var(--m);font-family:var(--mono);letter-spacing:.04em;line-height:1.6}
+.log-meta b{color:var(--gold);font-weight:700}
+.log-meta .dc{color:#7289da}
+.log-meta .vio-tag{color:var(--red3);border:1px solid var(--red);padding:0 5px;display:inline-block;margin-left:4px;font-size:10px}
+
+/* --- Toast --- */
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translate(-50%,80px);
+  background:var(--gold);color:#141813;
+  padding:12px 20px;font-weight:700;font-size:13px;
+  letter-spacing:.1em;text-transform:uppercase;z-index:99;
+  transition:transform .3s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;
+}
+.toast.on{transform:translate(-50%,0)}
+.toast.err{background:var(--red3);color:#fff}
+
+/* --- Utility --- */
+[hidden]{display:none!important}
+.hint{font-size:12px;color:var(--m);line-height:1.5;margin-top:10px}
+.divider{height:1px;background:var(--line);margin:18px 0}
+.vio-banner{
+  padding:10px 14px;margin-bottom:14px;
+  background:#1f0e0e;border:1px solid var(--red);border-left:3px solid var(--red3);
+  font-size:12px;color:var(--red3);font-weight:600;line-height:1.4;
+}
+.vio-banner b{font-family:var(--mono);letter-spacing:.06em}
+
+/* --- Print --- */
+@media print{
+  body{background:#fff;color:#000;padding:0}
+  .hdr,.nav,.toc,.sec,.panel{background:#fff;border-color:#999;box-shadow:none;break-inside:avoid}
+  .sec-n,.sec-h .tag,.note{background:#f5f5f5}
+  .toc ol li a,.sec p,.sec li{color:#000}
+  .sec h3,.sec p b,.sec li b,.hdr h1,.toc h2,.sec-n,.note b{color:#333}
+  .nav{display:none}
+}
+
+@media(max-width:520px){
+  .hdr .stamp{display:none}
+  .sec{padding:18px 14px}
+  .sec h2{font-size:15px}
+  .opts{margin-left:0}
+  .btn-row{flex-direction:column}
+  .btn.row{width:100%}
+  .nav button{font-size:11px;padding:9px 4px}
+  .nav button .n{display:none}
+  .score-big .n{font-size:52px}
+  .timer-bar .val{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <span class="em">🛡</span>
+    <div class="tx">
+      <h1>22-я ОГШБр · Учебный центр</h1>
+      <p>Отдельная Гвардейская Штурмовая Бригада</p>
+    </div>
+    <span class="stamp">СЕКРЕТНО</span>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button id="navHome" class="on" onclick="showScreen('home')">🏠 Главная</button>
+    <button id="navGuide" onclick="showScreen('guide')">📖 Методичка</button>
+    <button id="navTest" onclick="showScreen('test')">🧪 Тест</button>
+    <button id="navLogs" onclick="showScreen('logs')">📊 Журнал</button>
+  </div>
+
+  <!-- ============ HOME ============ -->
+  <div id="screenHome">
+    <div class="panel">
+      <div class="panel-h"><div><h2>Учебный центр</h2></div></div>
+      <div class="menu-grid">
+        <button class="menu-card" onclick="showScreen('guide')">
+          <span class="ic">📖</span>
+          <div class="tx"><b>Методичка</b><span>Основы окопного боя · 6 разделов по всем темам теста</span></div>
+          <span class="ar">→</span>
+        </button>
+        <button class="menu-card" onclick="showScreen('test')">
+          <span class="ic">🧪</span>
+          <div class="tx"><b>Тестирование</b><span>10 вопросов · таймер 2:30 · защита от списывания</span></div>
+          <span class="ar">→</span>
+        </button>
+        <button class="menu-card" onclick="showScreen('logs')">
+          <span class="ic">📊</span>
+          <div class="tx"><b>Журнал</b><span>Все прохождения: позывной, Discord, результат, нарушения</span></div>
+          <span class="ar">→</span>
+        </button>
+      </div>
+      <p class="hint">Рекомендуется сначала изучить методичку, затем пройти тест. После теста — разбор ошибок и запись в журнал.</p>
+    </div>
+  </div>
+
+  <!-- ============ GUIDE ============ -->
+  <div id="screenGuide" hidden>
+    <div class="toc">
+      <h2>Содержание методички</h2>
+      <ol>
+        <li><a href="#s1">Устав и дисциплина</a></li>
+        <li><a href="#s2">Связь и доклады</a></li>
+        <li><a href="#s3">Тактика штурма и перемещения</a></li>
+        <li><a href="#s4">Медицина: остановка кровотечения</a></li>
+        <li><a href="#s5">БПЛА и авиация: целеуказание</a></li>
+        <li><a href="#s6">Минная опасность и растяжки</a></li>
+      </ol>
+    </div>
+
+    <!-- 1 -->
+    <section class="sec" id="s1">
+      <div class="sec-h">
+        <div class="sec-n">01</div>
+        <h2>Устав и дисциплина</h2>
+        <span class="tag">УСТАВ</span>
+      </div>
+      <h3>Приказ командира и сомнения бойца</h3>
+      <p>Командир отвечает за решение и жизнь личного состава. Боец <b>не обсуждает приказ в бою</b> и не отказывается от его выполнения — даже если тактическая ситуация кажется ему спорной.</p>
+      <p>Правильный порядок действий:</p>
+      <ol class="steps">
+        <li><b>Выполнить приказ</b> в полном объёме и в срок.</li>
+        <li><b>После выполнения</b> (или после боя) доложить командиру о своих сомнениях и предложениях.</li>
+        <li>Если приказ <b>явно преступный</b> — действовать по уставу и докладывать по команде.</li>
+      </ol>
+      <div class="note warn"><b>Запрещено</b>Отказываться от выполнения приказа в бою «из-за риска потерь». Оспаривать приказ в общем чате или в эфире.</div>
+      <div class="back"><span class="n">Вопрос 1</span> Что делать, если приказ командира кажется тактически неверным? — <b>Выполнить, а после боя доложить о сомнениях.</b></div>
+
+      <h3>Выговоры и исключение из бригады</h3>
+      <p>Согласно п. 9.1 устава бригады, <b>три выговора</b> являются основанием для рассмотрения вопроса об исключении бойца из состава бригады.</p>
+      <div class="back"><span class="n">Вопрос 6</span> Сколько выговоров нужно для исключения? — <b>3.</b></div>
+
+      <h3>Дезертирство</h3>
+      <p>К дезертирству приравнивается <b>самовольное оставление позиции без приказа</b>. Это не «неявка на ивент» и не «забыл включить рацию».</p>
+      <div class="note"><b>Важно</b>Неявка на мероприятие — дисциплинарное нарушение, но не дезертирство. Дезертирство — это оставление позиции без приказа.</div>
+      <div class="back"><span class="n">Вопрос 10</span> Что приравнивается к дезертирству? — <b>Самовольное оставление позиции без приказа.</b></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="sec" id="s2">
+      <div class="sec-h">
+        <div class="sec-n">02</div>
+        <h2>Связь и доклады</h2>
+        <span class="tag">СВЯЗЬ</span>
+      </div>
+      <h3>Схема доклада о противнике</h3>
+      <p>Стандартная схема доклада: <b>«Кто, что, где, когда, что делает»</b>. Это универсальный формат, который позволяет командиру быстро понять обстановку и принять решение.</p>
+      <table class="tbl">
+        <thead><tr><th>Элемент</th><th>Что указывается</th></tr></thead>
+        <tbody>
+          <tr><td><b>Кто</b></td><td>Позывной докладывающего, подразделение</td></tr>
+          <tr><td><b>Что</b></td><td>Что обнаружено: группа, техника, БПЛА, огневая точка</td></tr>
+          <tr><td><b>Где</b></td><td>Координаты, ориентир, направление, расстояние</td></tr>
+          <tr><td><b>Когда</b></td><td>Время обнаружения</td></tr>
+          <tr><td><b>Что делает</b></td><td>Действия противника: стоит, движется, окопался, ведёт огонь</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><b>Пример</b>«Ворон, вижу группу до 5 человек, ориентир — сгоревший БТР, северо-восток 200 м, 14:20, движутся в нашу сторону».</div>
+      <div class="back"><span class="n">Вопрос 2</span> Что означает доклад «Кто, что, где, когда, что делает»? — <b>Схема доклада о противнике.</b></div>
+
+      <h3>Дисциплина эфира</h3>
+      <p>Командира <b>категорически запрещено перебивать в эфире</b> (п. 3.2). Перебивание создаёт «кашу» в эфире, командир теряет нить, группа теряет время.</p>
+      <ul>
+        <li>Дождись паузы и докладывай коротко и по форме.</li>
+        <li>Критически важная информация — <b>«Командир, срочно»</b>, и жди ответа.</li>
+        <li>Звание в эфире не даёт права перебивать командира.</li>
+      </ul>
+      <div class="note warn"><b>Запрещено</b>Перебивать командира в эфире «если новость важная» или «если у тебя выше звание».</div>
+      <div class="back"><span class="n">Вопрос 8</span> Можно ли перебивать командира в эфире? — <b>Нет, категорически запрещено (п. 3.2).</b></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="s3">
+      <div class="sec-h">
+        <div class="sec-n">03</div>
+        <h2>Тактика штурма и перемещения</h2>
+        <span class="tag">ТАКТИКА</span>
+      </div>
+      <h3>Штурм лесополосы</h3>
+      <p>Главный принцип — <b>работа малыми группами</b>, использование укрытий и подавление противника огнём. Плотная толпа — это массовые потери от одного пулемёта или мины.</p>
+      <ol class="steps">
+        <li><b>Разбиться на малые группы</b> (2–4 бойца), распределить сектора.</li>
+        <li><b>Использовать укрытия</b>: деревья, складки местности, пни, кустарник.</li>
+        <li><b>Подавление</b>: одна группа ведёт огонь, другая перемещается.</li>
+        <li><b>Не бежать вглубь леса</b> без зачистки — это засада.</li>
+      </ol>
+      <div class="note warn"><b>Запрещено</b>Двигаться плотной толпой «чтобы сломить массой». Бежать вглубь леса без зачистки флангов и тыла.</div>
+      <div class="back"><span class="n">Вопрос 3</span> Главный принцип при штурме лесополосы? — <b>Малые группы, укрытия и подавление.</b></div>
+
+      <h3>«Мёртвая зона»</h3>
+      <p><b>Мёртвая зона</b> — это пространство, которое <b>не простреливается с текущей позиции</b>. Противник может в ней укрываться, накапливаться и подходить вплотную.</p>
+      <ul>
+        <li>Мёртвая зона есть у любого укрытия (за бугром, за стеной, в складке местности).</li>
+        <li>Её нужно <b>перекрывать</b> сменой позиции, вторым стрелком или гранатой.</li>
+        <li>Это не «зона радиомолчания» и не «место, где нельзя дроны».</li>
+      </ul>
+      <div class="back"><span class="n">Вопрос 5</span> Что такое «мёртвая зона»? — <b>Пространство, не простреливаемое с текущей позиции.</b></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="sec" id="s4">
+      <div class="sec-h">
+        <div class="sec-n">04</div>
+        <h2>Медицина: остановка кровотечения</h2>
+        <span class="tag">МЕДИЦИНА</span>
+      </div>
+      <h3>Артериальное кровотечение под огнём</h3>
+      <p>При артериальном кровотечении счёт идёт на секунды. Порядок действий под огнём:</p>
+      <ol class="steps">
+        <li><b>Укрыть</b> пострадавшего и себя (если возможно).</li>
+        <li><b>Наложить жгут (CAT)</b> выше раны — на 5–7 см выше края раны, максимально туго.</li>
+        <li><b>Зафиксировать время</b> наложения жгута (на жгуте или на видном месте).</li>
+        <li><b>Укрыть</b> пострадавшего, продолжить наблюдение.</li>
+      </ol>
+      <div class="note warn"><b>Запрещено</b>Начинать с обезболивающего при артериальном кровотечении. Делать искусственное дыхание при кровотечении — это не первая помощь при данной травме.</div>
+      <div class="note ok"><b>Помни</b>Жгут накладывается выше раны, максимально туго, с фиксацией времени. Обезболивающее — после остановки кровотечения.</div>
+      <div class="back"><span class="n">Вопрос 4</span> Первое действие при артериальном кровотечении под огнём? — <b>Наложить жгут (CAT) выше раны и укрыть.</b></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="sec" id="s5">
+      <div class="sec-h">
+        <div class="sec-n">05</div>
+        <h2>БПЛА и авиация: целеуказание</h2>
+        <span class="tag">БПЛА</span>
+      </div>
+      <h3>Приоритет в целеуказании</h3>
+      <p>Приоритет в целеуказании для авиации имеет <b>командир подразделения</b> или <b>оператор БПЛА, передавший точные координаты</b>.</p>
+      <ul>
+        <li><b>Любой боец</b>, увидевший врага, докладывает командиру — но не «заказывает» авиацию напрямую.</li>
+        <li><b>Оператор БПЛА</b> передаёт точные координаты — это приоритетный источник.</li>
+        <li><b>Авиация не выбирает цели сама</b> по звуку выстрелов.</li>
+      </ul>
+      <div class="note"><b>Порядок</b>Обнаружил цель → доложил командиру по схеме «кто, что, где, когда, что делает» → командир или оператор БПЛА передаёт целеуказание авиации.</div>
+      <div class="back"><span class="n">Вопрос 7</span> Кто имеет приоритет в целеуказании для авиации? — <b>Командир подразделения или оператор БПЛА с точными координатами.</b></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="sec" id="s6">
+      <div class="sec-h">
+        <div class="sec-n">06</div>
+        <h2>Минная опасность и растяжки</h2>
+        <span class="tag">ТАКТИКА</span>
+      </div>
+      <h3>Обнаружение мины (растяжки) перед группой</h3>
+      <p>Главное правило — <b>не паниковать и не дёргать группу</b>. Порядок действий:</p>
+      <ol class="steps">
+        <li><b>Остановить группу</b> жестом или по связи.</li>
+        <li><b>Отметить опасность</b> маркером (флажок, лента, камень, любой заметный предмет).</li>
+        <li><b>Обойти</b> опасное место по безопасному маршруту.</li>
+        <li><b>Доложить</b> командиру о минной опасности и координатах.</li>
+      </ol>
+      <div class="note warn"><b>Запрещено</b>Кричать «Мины!» и отпрыгивать назад — это паника и подрыв группы. Пытаться обезвредить растяжку ножом — это верная смерть.</div>
+      <div class="note ok"><b>Помни</b>Остановить → отметить → обойти → доложить. Никаких самостоятельных «обезвреживаний».</div>
+      <div class="back"><span class="n">Вопрос 9</span> Как действовать при обнаружении мины (растяжки)? — <b>Остановить группу, отметить опасность и обойти.</b></div>
+    </section>
+
+    <div class="panel">
+      <button class="btn primary" onclick="showScreen('test')">🧪 Пройти тест после методички →</button>
+      <p class="hint">Проверь себя: 10 вопросов, таймер 2:30, защита от списывания.</p>
+    </div>
+  </div>
+
+  <!-- ============ TEST ============ -->
+  <div id="screenTest" hidden>
+    <!-- LOGIN -->
+    <div id="testLogin">
+      <div class="panel">
+        <div class="panel-h"><div><h2>Идентификация бойца</h2></div></div>
+        <div class="field">
+          <label for="callsign">Позывной</label>
+          <input id="callsign" type="text" placeholder="Например: Ворон" maxlength="32" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="discord">Discord-username</label>
+          <input id="discord" type="text" placeholder="например: voron_22 или voron#1234" maxlength="40" autocomplete="off">
+          <div class="field-hint" id="discordHint">Используется для учёта и защиты от повторного прохождения. Формат: <b>name</b> или <b>name#1234</b>.</div>
+        </div>
+        <div class="field">
+          <label for="unit">Подразделение</label>
+          <select id="unit">
+            <option value="">— выбери подразделение —</option>
+            <option>1-я ШР</option>
+            <option>ГрСпН «Урал»</option>
+            <option>112-й АО</option>
+            <option>21-й ОМО</option>
+            <option>102-я ТР</option>
+          </select>
+        </div>
+        <button class="btn primary" onclick="startTest()">Начать тестирование →</button>
+        <p class="hint">⏱ Время: <b style="color:var(--gold)">2:30</b> · 10 вопросов · устав, тактика, связь, медицина, БПЛА, дисциплина. Один правильный ответ.</p>
+      </div>
+    </div>
+
+    <!-- TEST BODY -->
+    <div id="testBody" hidden>
+      <div class="panel">
+        <div id="vioBanner" class="vio-banner" hidden></div>
+        <div class="timer-bar" id="timerBar">
+          <span class="ic">⏱</span>
+          <div class="tx">
+            <div class="lbl">До конца теста</div>
+            <div class="val" id="timerVal">02:30</div>
+          </div>
+          <div class="vio" id="vioCount">Нарушений: 0</div>
+        </div>
+        <div class="test-meta">
+          <span>Боец: <b id="metaCall">—</b></span>
+          <span><b id="metaDone">0</b>/10</span>
+        </div>
+        <div class="progress"><i id="progBar"></i></div>
+        <form id="testForm" onsubmit="event.preventDefault();finishTest('manual')">
+          <div id="questions"></div>
+          <button class="btn primary" type="submit" id="submitBtn" disabled>Завершить тестирование</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="testResult" hidden>
+      <div class="panel" id="resultPanel">
+        <div class="panel-h"><div><h2>Результат</h2></div></div>
+        <div class="score-big" id="scoreBox">
+          <div class="n"><span id="scoreN">0</span><small>/10</small></div>
+          <div class="v" id="scoreV">—</div>
+          <div class="bar"><i id="scoreBar" style="width:0"></i></div>
+        </div>
+        <div id="vioResultWrap" hidden class="vio-banner"><b id="vioResultText"></b></div>
+        <div class="report" id="reportBox"></div>
+        <div class="btn-row">
+          <button class="btn row primary" onclick="copyResult()">📋 Скопировать</button>
+          <button class="btn row" onclick="downloadImage()">📷 Скриншот</button>
+        </div>
+        <div class="divider"></div>
+        <h3 style="font-size:12px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px">Разбор ошибок</h3>
+        <div id="errorsBox"></div>
+        <div class="btn-row">
+          <button class="btn row ghost" onclick="showScreen('guide')">📖 Методичка</button>
+          <button class="btn row ghost" onclick="restartTest()">↻ Заново</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LOGS ============ -->
+  <div id="screenLogs" hidden>
+    <div class="panel">
+      <div class="panel-h"><div><h2>Журнал прохождений</h2></div></div>
+      <div id="logsList"></div>
+      <div class="btn-row">
+        <button class="btn row ghost" onclick="exportLogsCSV()">📤 Экспорт CSV</button>
+        <button class="btn row danger" onclick="clearLogs()">🗑 Очистить</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast">Скопировано</div>
+
+<script>
+/* ============ ВОПРОСЫ ============ */
+const QUESTIONS = [
+  {tag:'Устав', q:'Что делать, если приказ командира кажется вам тактически неверным?',
+   o:['Выполнить, а после боя доложить о своих сомнениях.','Отказаться выполнять, так как это может привести к потерям.','Оспорить приказ в общем чате.'], a:0},
+  {tag:'Связь', q:'Что означает доклад «Кто, что, где, когда, что делает»?',
+   o:['Схема доклада о противнике.','Порядок запроса огневой поддержки.','Формат отчёта по итогам ивента.'], a:0},
+  {tag:'Тактика', q:'Какой главный принцип при штурме лесополосы?',
+   o:['Двигаться плотной толпой, чтобы сломить оборону массой.','Разбиться на малые группы, использовать укрытия и подавление.','Бежать вглубь леса как можно быстрее.'], a:1},
+  {tag:'Медицина', q:'Что делать в первую очередь при артериальном кровотечении у товарища под огнём?',
+   o:['Дать обезболивающее.','Наложить жгут (CAT) выше раны и укрыть.','Начать делать искусственное дыхание.'], a:1},
+  {tag:'Тактика', q:'Что такое «мёртвая зона»?',
+   o:['Пространство, не простреливаемое с текущей позиции.','Зона радиомолчания.','Место, где нельзя использовать дроны.'], a:0},
+  {tag:'Устав', q:'Сколько выговоров нужно получить, чтобы быть исключённым из бригады (согласно п. 9.1)?',
+   o:['2','3','5'], a:1},
+  {tag:'БПЛА', q:'Кто имеет приоритет в целеуказании для авиации?',
+   o:['Любой боец, увидевший врага.','Командир подразделения или оператор БПЛА, передавший точные координаты.','Авиация выбирает цели сама по звуку выстрелов.'], a:1},
+  {tag:'Связь', q:'Можно ли перебивать командира в эфире?',
+   o:['Да, если новость критически важная.','Нет, категорически запрещено (п. 3.2).','Да, если у тебя выше звание.'], a:1},
+  {tag:'Тактика', q:'Как действовать при обнаружении мины (растяжки) перед группой?',
+   o:['Крикнуть «Мины!» и отпрыгнуть назад.','Остановить группу жестом/по связи, отметить опасность маркером и обойти.','Попытаться обезвредить её ножом.'], a:1},
+  {tag:'Дисциплина', q:'Согласно уставу, что приравнивается к дезертирству?',
+   o:['Неявка на ивент без предупреждения.','Самовольное оставление позиции без приказа.','Забыть включить рацию.'], a:1}
+];
+
+const TEST_DURATION = 150;
+const MAX_VIOLATIONS = 2;
+const LOGS_KEY = 'ogshbr_logs_v1';
+
+/* ============ СОСТОЯНИЕ ============ */
+const state = {
+  callsign:'', discord:'', unit:'',
+  answers:new Array(QUESTIONS.length).fill(null),
+  started:false, finished:false, voided:false,
+  violations:0, startTime:0, endTime:0,
+  timerId:null, timeLeft:TEST_DURATION,
+  tabBlurredAt:0
+};
+
+const $ = id => document.getElementById(id);
+
+/* ============ НАВИГАЦИЯ ============ */
+let currentScreen = 'home';
+function showScreen(name){
+  currentScreen = name;
+  ['home','guide','test','logs'].forEach(s => {
+    const el = $('screen' + s.charAt(0).toUpperCase() + s.slice(1));
+    if (el) el.hidden = (s !== name);
+  });
+  ['navHome','navGuide','navTest','navLogs'].forEach(id => {
+    const el = $(id);
+    if (el) el.classList.remove('on');
+  });
+  const navMap = {home:'navHome', guide:'navGuide', test:'navTest', logs:'navLogs'};
+  if (navMap[name]) $(navMap[name]).classList.add('on');
+
+  if (name === 'logs') renderLogs();
+  if (name === 'test'){
+    if (state.finished) showTestSub('result');
+    else if (state.started) showTestSub('body');
+    else showTestSub('login');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showTestSub(which){
+  $('testLogin').hidden = which !== 'login';
+  $('testBody').hidden = which !== 'body';
+  $('testResult').hidden = which !== 'result';
+}
+
+/* ============ РЕГИСТРАЦИЯ ============ */
+const DISCORD_RE = /^[a-z0-9_.]{2,32}(#\d{4})?$/i;
+function validateDiscord(v){
+  v = v.trim();
+  if (!v) return 'Введи Discord-username';
+  if (!DISCORD_RE.test(v)) return 'Неверный формат. Пример: voron_22 или voron#1234';
+  return '';
+}
+
+function startTest(){
+  const c = $('callsign').value.trim();
+  const d = $('discord').value.trim();
+  const u = $('unit').value;
+  const dErr = validateDiscord(d);
+
+  $('callsign').classList.toggle('error', !c);
+  $('discord').classList.toggle('error', !!dErr);
+  $('discordHint').classList.toggle('err', !!dErr);
+  $('discordHint').innerHTML = dErr || 'Используется для учёта и защиты от повторного прохождения. Формат: <b>name</b> или <b>name#1234</b>.';
+
+  if (!c){ toast('Введи позывной', true); $('callsign').focus(); return; }
+  if (dErr){ toast(dErr, true); $('discord').focus(); return; }
+  if (!u){ toast('Выбери подразделение', true); $('unit').focus(); return; }
+
+  Object.assign(state, {
+    callsign:c, discord:d, unit:u,
+    answers:new Array(QUESTIONS.length).fill(null),
+    started:true, finished:false, voided:false,
+    violations:0, startTime:Date.now(), endTime:0,
+    timeLeft:TEST_DURATION, tabBlurredAt:0
+  });
+
+  $('metaCall').textContent = c;
+  $('vioBanner').hidden = true;
+  $('vioCount').textContent = 'Нарушений: 0';
+  renderQuestions();
+  updateProgress();
+  updateTimerUI();
+  showTestSub('body');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  startTimer();
+  attachAntiCheat();
+}
+
+/* ============ ТАЙМЕР ============ */
+function startTimer(){
+  clearInterval(state.timerId);
+  state.timerId = setInterval(() => {
+    if (!state.started || state.finished) return;
+    state.timeLeft--;
+    updateTimerUI();
+    if (state.timeLeft <= 0){
+      clearInterval(state.timerId);
+      finishTest('timeout');
+    }
+  }, 1000);
+}
+function updateTimerUI(){
+  const m = Math.floor(state.timeLeft/60);
+  const s = state.timeLeft%60;
+  $('timerVal').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const bar = $('timerBar');
+  bar.classList.remove('warn','danger');
+  if (state.timeLeft <= 30) bar.classList.add('danger');
+  else if (state.timeLeft <= 60) bar.classList.add('warn');
+}
+
+/* ============ АНТИ-ЧИТ ============ */
+function attachAntiCheat(){
+  const screen = $('testBody');
+  ['copy','cut','paste','contextmenu'].forEach(ev => {
+    screen.addEventListener(ev, e => {
+      e.preventDefault();
+      addViolation('Попытка ' + ({copy:'копирования',cut:'вырезания',paste:'вставки',contextmenu:'контекстного меню'}[ev]));
+    });
+  });
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  window.addEventListener('blur', onBlur);
+  window.addEventListener('focus', onFocus);
+}
+function detachAntiCheat(){
+  document.removeEventListener('visibilitychange', onVisibilityChange);
+  window.removeEventListener('blur', onBlur);
+  window.removeEventListener('focus', onFocus);
+}
+let blurPending = false;
+function onVisibilityChange(){
+  if (document.hidden) onBlur();
+  else onFocus();
+}
+function onBlur(){
+  if (!state.started || state.finished || blurPending) return;
+  blurPending = true;
+  state.tabBlurredAt = Date.now();
+  setTimeout(() => {
+    if (blurPending && document.hidden) addViolation('Уход со вкладки');
+  }, 1500);
+}
+function onFocus(){ blurPending = false; }
+function addViolation(reason){
+  if (!state.started || state.finished) return;
+  state.violations++;
+  $('vioCount').textContent = 'Нарушений: ' + state.violations;
+  const b = $('vioBanner');
+  b.hidden = false;
+  b.innerHTML = `⚠ <b>Нарушение #${state.violations}:</b> ${esc(reason)}. ${state.violations >= MAX_VIOLATIONS ? 'Лимит превышен — тест будет аннулирован.' : `Осталось попыток: ${MAX_VIOLATIONS - state.violations}.`}`;
+  if (state.violations >= MAX_VIOLATIONS){
+    state.voided = true;
+    finishTest('void');
+  }
+}
+
+/* ============ РЕНДЕР ВОПРОСОВ ============ */
+function renderQuestions(){
+  $('questions').innerHTML = QUESTIONS.map((q, i) => `
+    <div class="q" data-q="${i}">
+      <div class="q-h">
+        <div class="q-n">${String(i+1).padStart(2,'0')}</div>
+        <div class="q-t">${esc(q.q)}<span class="q-tag">${q.tag}</span></div>
+      </div>
+      <div class="opts">
+        ${q.o.map((opt, j) => `
+          <label class="opt">
+            <input type="radio" name="q${i}" value="${j}" onchange="pick(${i},${j})">
+            <span class="box"></span>
+            <span class="lbl">${esc(opt)}</span>
+          </label>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+function pick(qi, oi){ state.answers[qi] = oi; updateProgress(); }
+function updateProgress(){
+  const done = state.answers.filter(a => a !== null).length;
+  $('metaDone').textContent = done;
+  $('progBar').style.width = (done/QUESTIONS.length*100) + '%';
+  $('submitBtn').disabled = done !== QUESTIONS.length;
+}
+
+/* ============ ФИНАЛ ============ */
+function finishTest(mode){
+  if (state.finished) return;
+  state.finished = true;
+  state.endTime = Date.now();
+  clearInterval(state.timerId);
+  detachAntiCheat();
+
+  let correct = 0;
+  const errors = [];
+  QUESTIONS.forEach((q, i) => {
+    if (state.answers[i] === q.a) correct++;
+    else errors.push(i);
+  });
+
+  const voided = mode === 'void' || state.voided;
+  const duration = Math.round((state.endTime - state.startTime) / 1000);
+  const verdict = voided ? 'АННУЛИРОВАНО' : getVerdict(correct);
+  const cls = voided ? 'void' : correct >= 9 ? 'ok' : correct >= 7 ? 'warn' : 'bad';
+
+  $('scoreN').textContent = voided ? '✕' : correct;
+  $('scoreV').textContent = verdict;
+  $('scoreBox').className = 'score-big ' + cls;
+  $('scoreBar').style.width = voided ? '100' : (correct/10*100) + '%';
+
+  if (state.violations > 0){
+    $('vioResultWrap').hidden = false;
+    $('vioResultText').textContent = voided
+      ? `ТЕСТ АННУЛИРОВАН: ${state.violations} нарушений (лимит ${MAX_VIOLATIONS}).`
+      : `Нарушений за тест: ${state.violations}.`;
+  } else {
+    $('vioResultWrap').hidden = true;
+  }
+
+  const date = new Date().toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const durStr = `${Math.floor(duration/60)}:${String(duration%60).padStart(2,'0')}`;
+  const errText = errors.length ? errors.map(i => i+1).join(', ') : 'Нет ошибок';
+  const report = `=== РЕЗУЛЬТАТЫ ТЕСТИРОВАНИЯ 22-я ОГШБр ===
+Боец: ${state.callsign}
+Discord: ${state.discord}
+Подразделение: ${state.unit}
+Результат: ${voided ? 'АННУЛИРОВАНО' : correct + ' из 10'}
+Вердикт: ${verdict}
+------------------------------------------
+Ошибки в вопросах: ${errText}
+Нарушений: ${state.violations}
+Длительность: ${durStr}
+Дата: ${date}`;
+  $('reportBox').textContent = report;
+
+  if (!errors.length){
+    $('errorsBox').innerHTML = '<p class="hint" style="color:var(--ok)">✓ Ошибок нет. Отличная подготовка, боец.</p>';
+  } else {
+    $('errorsBox').innerHTML = '<ul class="err-list">' + errors.map(i => {
+      const q = QUESTIONS[i];
+      return `<li><b>Вопрос ${i+1} · ${q.tag}</b><br>${esc(q.q)}<span class="corr">✓ Правильно: ${esc(q.o[q.a])}</span></li>`;
+    }).join('') + '</ul>';
+  }
+
+  saveLog({
+    callsign:state.callsign, discord:state.discord, unit:state.unit,
+    correct, total:QUESTIONS.length, verdict, voided,
+    violations:state.violations, duration, errors:errors.map(i=>i+1),
+    date:new Date().toISOString(), mode
+  });
+
+  showTestSub('result');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function getVerdict(n){
+  if (n >= 9) return 'Отлично';
+  if (n >= 7) return 'Хорошо';
+  if (n >= 5) return 'Удовлетворительно';
+  return 'Требуется доп. подготовка';
+}
+
+/* ============ ЛОГИ ============ */
+function loadLogs(){
+  try { return JSON.parse(localStorage.getItem(LOGS_KEY) || '[]'); } catch(e){ return []; }
+}
+function saveLog(entry){
+  const logs = loadLogs();
+  logs.unshift(entry);
+  if (logs.length > 200) logs.length = 200;
+  try { localStorage.setItem(LOGS_KEY, JSON.stringify(logs)); } catch(e){}
+}
+function renderLogs(){
+  const logs = loadLogs();
+  const box = $('logsList');
+  if (!logs.length){
+    box.innerHTML = '<div class="logs-empty">Журнал пуст. Пройди тест — запись появится здесь.</div>';
+    return;
+  }
+  box.innerHTML = logs.map(l => {
+    const cls = l.voided ? 'void' : l.correct >= 9 ? 'ok' : l.correct >= 7 ? 'warn' : 'bad';
+    const d = new Date(l.date);
+    const dateStr = d.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    const durStr = `${Math.floor(l.duration/60)}:${String(l.duration%60).padStart(2,'0')}`;
+    const scoreText = l.voided ? '✕ 0/10' : `${l.correct}/10`;
+    return `<div class="log-item ${cls}">
+      <div class="log-top">
+        <span class="log-name">${esc(l.callsign)} <span style="color:var(--m);font-weight:400">· ${esc(l.unit)}</span></span>
+        <span class="log-score ${cls}">${scoreText}</span>
+      </div>
+      <div class="log-meta">
+        <span class="dc">@${esc(l.discord)}</span> · <b>${l.verdict}</b><br>
+        ${dateStr} · ${durStr}${l.violations ? ` <span class="vio-tag">наруш: ${l.violations}</span>` : ''}${l.errors.length ? ` · ошибки: ${l.errors.join(',')}` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+function exportLogsCSV(){
+  const logs = loadLogs();
+  if (!logs.length){ toast('Журнал пуст', true); return; }
+  const header = 'Дата;Позывной;Discord;Подразделение;Результат;Вердикт;Нарушений;Длительность;Ошибки\n';
+  const rows = logs.map(l => {
+    const d = new Date(l.date).toLocaleString('ru-RU');
+    return [d, l.callsign, l.discord, l.unit,
+      l.voided ? 'АННУЛИРОВАНО' : `${l.correct}/10`,
+      l.verdict, l.violations, `${l.duration}с`, l.errors.join(',') || '—'].join(';');
+  }).join('\n');
+  const blob = new Blob(['\ufeff'+header+rows], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `OGSHBr_журнал_${Date.now()}.csv`;
+  a.click();
+  toast('CSV сохранён');
+}
+function clearLogs(){
+  if (!confirm('Удалить весь журнал? Действие необратимо.')) return;
+  localStorage.removeItem(LOGS_KEY);
+  renderLogs();
+  toast('Журнал очищен');
+}
+
+/* ============ КОПИРОВАНИЕ ============ */
+function copyResult(){
+  const txt = $('reportBox').textContent;
+  const done = () => toast('Результат скопирован');
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(done).catch(() => fallbackCopy(txt, done));
+  } else fallbackCopy(txt, done);
+}
+function fallbackCopy(txt, cb){
+  const ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); cb(); } catch(e){ toast('Не удалось скопировать', true); }
+  ta.remove();
+}
+
+/* ============ СКРИНШОТ ============ */
+function downloadImage(){
+  toast('Готовлю изображение…');
+  if (typeof html2canvas === 'undefined'){
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload = () => doScreenshot();
+    s.onerror = () => toast('Сделай скриншот экрана вручную', true);
+    document.head.appendChild(s);
+  } else doScreenshot();
+}
+function doScreenshot(){
+  const node = $('resultPanel');
+  html2canvas(node, {backgroundColor:'#0d0f0c', scale:2, logging:false}).then(canvas => {
+    const a = document.createElement('a');
+    a.download = `Результат_${state.callsign.replace(/[^\wа-яё\-]/gi,'_')}_${Date.now()}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    toast('Скриншот сохранён');
+  }).catch(() => toast('Сделай скриншот экрана вручную', true));
+}
+
+/* ============ ПЕРЕЗАПУСК ============ */
+function restartTest(){
+  clearInterval(state.timerId);
+  detachAntiCheat();
+  Object.assign(state, {
+    callsign:'', discord:'', unit:'',
+    answers:new Array(QUESTIONS.length).fill(null),
+    started:false, finished:false, voided:false,
+    violations:0, startTime:0, endTime:0, timeLeft:TEST_DURATION
+  });
+  $('callsign').value = '';
+  $('discord').value = '';
+  $('unit').value = '';
+  $('callsign').classList.remove('error');
+  $('discord').classList.remove('error');
+  showTestSub('login');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ============ TOAST / ESCAPE ============ */
+let toastT;
+function toast(msg, isErr){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.toggle('err', !!isErr);
+  t.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('on'), 2400);
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ============ INIT ============ */
+$('discord').addEventListener('input', function(){
+  const err = validateDiscord(this.value);
+  this.classList.toggle('error', !!err && this.value.length > 0);
+});
+$('callsign').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); $('discord').focus(); } });
+$('discord').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); startTest(); } });
+</script>
+</body>
+</html>
