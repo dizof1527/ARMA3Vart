@@ -1,7 +1,7 @@
 /* Offline support for GitHub Pages, including repositories in a subdirectory. */
 const ROOT=new URL('./',self.location.href);
 const PREFIX='bashgau:'+ROOT.pathname+':';
-const CACHE=PREFIX+'5a43a65c05b9';
+const CACHE=PREFIX+'41a827c656f5';
 const APP=new URL('index.html',ROOT).href;
 const ASSETS=['manifest.webmanifest','icon.png','icon-192.png'].map(path=>new URL(path,ROOT).href);
 self.addEventListener('install',event=>event.waitUntil((async()=>{
