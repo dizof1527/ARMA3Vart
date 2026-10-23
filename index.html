@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#101213">
+<meta name="theme-color" content="#0c1118">
+<meta name="app-version" content="2026-10-23.2">
+<meta name="description" content="Расписание БашГАУ: все группы, подгруппы, актуальные недели и офлайн-доступ.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="БашГАУ">
 <meta name="mobile-web-app-capable" content="yes">
@@ -45,6 +47,271 @@
 @media(max-width:760px){.offline-symbol{display:grid;place-items:center}.offline-symbol .ui-icon{width:16px;height:16px}.offline-pill>i{position:absolute;top:4px;right:4px;width:4px;height:4px}.lesson-meta{font-size:10px}.lesson-type{font-size:8px}.lesson-top .subgroup-label{font-size:9px}}
 @media(max-width:760px) and (max-height:650px){.workspace{padding-top:12px}.header{margin-bottom:13px}.toolbar-top{margin-bottom:10px}.day-nav{padding-bottom:12px}.day-nav button{padding-top:7px;padding-bottom:5px;gap:2px}.day-nav small{font-size:22px}.insights{margin-top:12px}.current-panel{padding:11px 12px}.agenda{padding-top:14px}.agenda-heading{gap:6px;margin-bottom:11px}.summary h2{font-size:16px}.subgroups button{min-height:28px;padding-top:5px;padding-bottom:5px}.card-button{min-height:121px}}
 
+/* Comfortable typography, clear controls and vivid theme accents. */
+:root{--text-scale:1}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html[data-text-size=large]{--text-scale:1.15}
+html[data-theme=graphite]{--bg:#0c1118;--s:#151e2b;--s2:#223046;--t:#f6f9ff;--m:#b2c0d4;--l:#35465f;--a:#b6fa4b;--ao:#162300;--lec:#93b4ff;--prac:#4ae6b0}
+body{font-size:calc(16px * var(--text-scale));line-height:1.55}
+a{color:var(--a)}
+button,a,input,textarea{ -webkit-tap-highlight-color:transparent }
+.nav-item{font-size:calc(14px * var(--text-scale));min-height:48px}
+.brand-subtitle,.nav-label,.sidebar-note,.workspace-foot{font-size:12px}
+.eyebrow{font-size:11px;letter-spacing:.07em}
+.header .icon{width:44px;height:44px;min-width:44px}
+.header-actions{gap:8px}
+.support-shortcut{color:var(--a);border-color:color-mix(in srgb,var(--a) 45%,var(--l));background:color-mix(in srgb,var(--a) 8%,var(--s))}
+.utility-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:-15px 0 25px}
+.data-info{color:var(--m);font-size:12px;line-height:1.5;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.utility-actions{display:flex;gap:8px}
+.quick-today,.install-shortcut{display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 12px;min-height:44px;border-radius:12px;border:1px solid var(--l);background:var(--s);font-size:13px;font-weight:650}
+.quick-today .ui-icon,.install-shortcut .ui-icon{width:18px;height:18px}
+.install-shortcut{color:var(--ao);background:var(--a);border-color:var(--a)}
+.group-copy strong{font-size:calc(20px * var(--text-scale));font-weight:700}
+.group-copy small{font-size:calc(13px * var(--text-scale))}
+.group-switch{min-height:48px}
+.group-monogram{width:48px;height:48px;background:color-mix(in srgb,var(--a) 13%,var(--s));border:1px solid color-mix(in srgb,var(--a) 25%,var(--l))}
+.weekbar button{min-width:44px;min-height:44px}
+.weekbar .week-title{font-size:14px;line-height:1.45}
+.week-title .week-type{font-size:12px}
+.quick-groups{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;overscroll-behavior-x:contain;padding:0 0 14px;margin-top:-8px}
+.quick-group{flex:none;display:flex;align-items:center;gap:7px;border:1px solid var(--l);border-radius:24px;padding:8px 13px;min-height:44px;background:var(--s);font-size:13px;font-weight:600}
+.quick-group .ui-icon{width:16px;height:16px;color:var(--a)}
+.quick-group.on{border-color:var(--a);background:color-mix(in srgb,var(--a) 14%,var(--s))}
+.day-nav button{min-height:100px;background:var(--s);padding:12px 2px 10px}
+.day-nav button>span:first-child{font-size:12px;font-weight:700}
+.day-nav small{font-size:29px;font-weight:600}
+.day-dots{gap:3px;max-width:100%;flex-wrap:wrap;min-height:8px;height:auto}
+.day-dots i{width:4px;height:4px}
+.today-beacon{width:5px;height:5px;top:8px;right:7px}
+.agenda-heading{flex-wrap:wrap;gap:15px}
+.summary h2{font-size:calc(24px * var(--text-scale));font-weight:650}
+.summary span{font-size:14px}
+.subgroup-tools{display:flex;gap:8px;align-items:center;max-width:100%}
+.subgroups{border-radius:13px;min-width:0;background:var(--s)}
+.subgroups button{min-height:44px;font-size:calc(13px * var(--text-scale));padding:9px 12px;line-height:1.3}
+.subgroups button.on{background:var(--a);color:var(--ao);box-shadow:0 3px 12px color-mix(in srgb,var(--a) 16%,transparent)}
+.remember-filter{width:46px;min-width:46px;height:50px;border-radius:13px;border:1px solid var(--l);background:var(--s);display:grid;place-items:center;color:var(--m)}
+.remember-filter[aria-pressed=true]{color:var(--a);border-color:var(--a);background:color-mix(in srgb,var(--a) 10%,var(--s))}
+.filter-summary{font-size:calc(13px * var(--text-scale));color:var(--m);padding:0 2px;margin:-4px 0 18px;line-height:1.6}
+.card{border-radius:20px;box-shadow:0 7px 24px #00000012;background:linear-gradient(125deg,color-mix(in srgb,var(--class-color) 5%,var(--s)),var(--s) 80%);border-color:color-mix(in srgb,var(--class-color) 24%,var(--l))}
+.card.past{opacity:1}
+.card-button{padding:22px 20px;grid-template-columns:75px minmax(0,1fr) 18px;gap:18px;min-height:160px}
+.card-button:before{width:4px;top:22px;bottom:22px;background:linear-gradient(180deg,var(--class-color),color-mix(in srgb,var(--class-color) 22%,transparent))}
+.time-block b{font-size:calc(21px * var(--text-scale));font-weight:700;letter-spacing:-.025em}
+.time-block small{font-size:calc(14px * var(--text-scale))}
+.pair-no{font-size:calc(12px * var(--text-scale));padding-top:18px}
+.title{font-size:calc(20px * var(--text-scale));font-weight:650;line-height:1.4;letter-spacing:-.02em}
+.lesson-body{gap:11px}
+.lesson-type,.lesson-live{font-size:calc(11px * var(--text-scale));line-height:1.5;letter-spacing:.03em;font-weight:700;padding:3px 8px;border-radius:7px}
+.lesson-type{background:color-mix(in srgb,var(--class-color) 16%,var(--s));border-color:color-mix(in srgb,var(--class-color) 38%,var(--l))}
+.lesson-top .subgroup-label{font-size:calc(12px * var(--text-scale));font-weight:650;color:var(--t);background:var(--s2);padding:4px 7px;border-radius:7px}
+.lesson-meta{font-size:calc(14px * var(--text-scale));gap:7px 14px;line-height:1.6}
+.lesson-meta .ui-icon{width:16px;height:16px}
+.card-chevron .ui-icon{width:18px;height:18px}
+.detail{margin-left:114px;padding:5px 0 22px}
+.detail p,.detail label{font-size:calc(14px * var(--text-scale));line-height:1.65}
+.detail input,.input,.search-field input{font-size:calc(16px * var(--text-scale));min-height:48px}
+.detail p b{font-weight:600}
+.agenda-end{font-size:12px;opacity:1}
+.status b{font-size:calc(14px * var(--text-scale));font-weight:650;line-height:1.5}
+.status small{font-size:calc(15px * var(--text-scale));line-height:1.5}
+.countdown-row strong,.status-clock{font-size:44px;font-weight:600}
+.countdown-row span,.ufa-time{font-size:12px}
+.status-progress{height:5px}
+.current-panel{border-color:color-mix(in srgb,var(--a) 60%,var(--l));background:linear-gradient(125deg,color-mix(in srgb,var(--a) 14%,var(--s)),var(--s) 85%)}
+.section-overline,.week-chart .bar-count,.week-chart small,.week-panel .week-caption{font-size:12px}
+.week-panel h3,.week-stat span,.notes-cta strong{font-size:15px}
+.notes-cta small,.current-panel .text-link{font-size:13px}
+.offline-pill{font-size:12px;min-height:44px}
+.panel{width:min(100%,680px)}
+.panel-head{gap:14px}
+.panel-head h2{font-size:calc(27px * var(--text-scale));font-weight:650;line-height:1.3}
+.panel-head .icon{width:44px;min-width:44px;height:44px}
+.panel-body{gap:12px;scrollbar-gutter:stable}
+.panel-body h3{font-size:calc(13px * var(--text-scale));letter-spacing:.04em;margin-top:20px}
+.menu-item{font-size:calc(16px * var(--text-scale));min-height:58px;padding:15px 16px;text-decoration:none;line-height:1.45}
+.menu-item small{font-size:calc(13px * var(--text-scale))}
+.menu-item .ui-icon{width:21px;height:21px;color:var(--a)}
+.menu-copy{display:flex;flex-direction:column;align-items:flex-start!important;gap:4px!important}
+.menu-copy small{font-weight:400;color:var(--m)}
+.muted,.offline-platform p,.offline-state{font-size:calc(14px * var(--text-scale));line-height:1.7}
+.offline-platform h3{font-size:17px}
+.pill,.primary{font-size:calc(14px * var(--text-scale));min-height:46px;padding:10px 14px}
+.choice{min-height:78px;padding:16px}
+.choice strong{font-size:calc(16px * var(--text-scale));font-weight:650;line-height:1.45}
+.choice small{font-size:calc(13px * var(--text-scale));line-height:1.5}
+.choice .saved-badge{color:var(--a);font-size:12px;margin-top:8px}
+.group-entry{display:flex;align-items:stretch;gap:6px;min-width:0}
+.group-entry>.choice{flex:1;min-width:0}
+.pin-choice{width:46px;flex:none;align-self:stretch;display:grid;place-items:center;border:1px solid var(--l);border-radius:12px;background:var(--s);color:var(--m)}
+.pin-choice[aria-pressed=true]{color:var(--a);border-color:var(--a)}
+.pin-choice .ui-icon{width:20px;height:20px}
+.group-section{display:grid;gap:10px}
+.group-section h3{margin:4px 0!important}
+.group-results-count{font-size:13px;color:var(--m)}
+.teacher-groups span{font-size:12px;padding:5px 8px}
+.lang-grid button{font-size:17px;min-height:74px}
+.lang-grid small{font-size:13px}
+.lang-grid .language-code{width:39px;height:39px;font-size:12px}
+.empty{font-size:15px}
+.empty strong{font-size:25px}
+.update-banner{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:15px 16px;border:1px solid color-mix(in srgb,var(--a) 50%,var(--l));background:color-mix(in srgb,var(--a) 12%,var(--s));border-radius:16px;margin-bottom:22px}
+.update-banner>button:first-child{display:flex;align-items:center;gap:10px;background:none;border:0;text-align:left;min-width:0;flex:1;font-size:14px;font-weight:600;padding:0;min-height:44px}
+.update-banner .ui-icon{width:21px;height:21px;color:var(--a)}
+.update-banner .icon{border:0}
+.change-item{display:grid;gap:7px;padding:15px;background:var(--s);border:1px solid var(--l);border-radius:13px;font-size:14px;overflow-wrap:anywhere}
+.change-item strong{font-size:16px}
+.change-item .change-label{font-size:12px;color:var(--a);font-weight:700}
+.change-item small{color:var(--m);font-size:13px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border:1px solid var(--l);background:var(--s);border-radius:13px}
+.toggle-row label{font-size:16px}
+.toggle-row input{width:24px;height:24px;accent-color:var(--a);flex:none}
+.sheet-grip{display:none}
+.toast{font-size:15px;max-width:calc(100vw - 32px);text-align:center;line-height:1.5;padding:13px 18px;z-index:100}
+@media(min-width:761px){.agenda-heading{flex-direction:column}.header{margin-bottom:28px}.offline-pill{max-width:190px}.card{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}}
+@media(min-width:761px) and (max-width:1250px){.dashboard{grid-template-columns:minmax(0,1fr) 250px}.card-button{grid-template-columns:64px minmax(0,1fr) 14px;padding:20px 16px;gap:14px}.time-block b{font-size:calc(19px * var(--text-scale))}.title{font-size:calc(18px * var(--text-scale))}.detail{margin-left:95px}.countdown-row strong,.status-clock{font-size:37px}}
+@media(max-width:760px){
+ .workspace{padding:24px 16px calc(112px + env(safe-area-inset-bottom));max-width:640px}
+ .header{margin-bottom:25px;align-items:center;gap:8px}
+ .header h1{font-size:32px;letter-spacing:-.045em}
+ .eyebrow{font-size:10px;letter-spacing:0;line-height:1.5}
+ .header-actions{gap:6px}
+ .header .icon,.offline-pill{width:44px;height:44px;min-width:44px}
+ .header .ui-icon,.offline-symbol .ui-icon{width:21px;height:21px}
+ .offline-pill>i{width:6px;height:6px;right:4px;top:4px}
+ .utility-strip{margin:-9px 0 22px;gap:10px}
+ .data-info{font-size:12px}
+ .utility-actions{gap:7px;flex-wrap:wrap}
+ .quick-today,.install-shortcut{font-size:13px}
+ .toolbar-top{flex-wrap:wrap;gap:16px;margin-bottom:19px;align-items:center}
+ .group-switch{gap:11px;max-width:100%;min-height:50px}
+ .group-copy strong{font-size:calc(21px * var(--text-scale))}
+ .group-copy small{font-size:calc(13px * var(--text-scale));line-height:1.5}
+ .group-monogram{width:48px;height:48px;border-radius:14px}
+ .group-monogram .ui-icon{width:25px;height:25px}
+ .group-switch .chevron{width:18px}
+ .weekbar{margin-left:auto;gap:2px}
+ .weekbar button{min-width:44px;min-height:46px}
+ .weekbar .week-title{font-size:14px;padding:4px 5px}
+ .week-title .week-type{font-size:12px}
+ .day-nav{gap:6px;padding-bottom:20px}
+ .day-nav button{min-height:92px;border-radius:14px;padding:12px 2px 10px;gap:5px}
+ .day-nav button>span:first-child{font-size:11px}
+ .day-nav small{font-size:28px}
+ .day-dots{gap:2px;margin-top:3px}
+ .day-dots i{width:3.5px;height:3.5px}
+ .today-beacon{width:4px;height:4px;right:6px;top:6px}
+ .insights{margin-top:20px}
+ .current-panel{padding:18px;border-radius:19px}
+ .status-text{grid-template-columns:minmax(0,1fr);gap:7px}
+ .status b{grid-column:1;grid-row:1;font-size:calc(14px * var(--text-scale))}
+ .status small{grid-column:1;grid-row:2;font-size:calc(16px * var(--text-scale));line-height:1.5;-webkit-line-clamp:unset;display:block;margin:0;overflow:visible}
+ .countdown-row{grid-column:1;grid-row:3;align-items:flex-start;display:flex;flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:6px 10px;justify-content:flex-start;margin:2px 0}
+ .countdown-row strong{font-size:34px;line-height:1.2;letter-spacing:-.03em}
+ .countdown-row span{font-size:13px;text-align:left;max-width:none;margin:0}
+ .status-clock{grid-column:1;grid-row:3;font-size:34px;line-height:1.2}
+ .ufa-time{grid-column:1;grid-row:4;font-size:12px;margin:0}
+ .status-progress{grid-column:1;grid-row:5;margin-top:4px;height:5px}
+ .agenda{padding-top:25px}
+ .agenda-heading{display:flex;align-items:stretch;flex-direction:column;gap:15px;margin-bottom:12px}
+ .summary h2{font-size:calc(23px * var(--text-scale));line-height:1.35;margin-bottom:6px}
+ .summary span{font-size:14px}
+ .subgroup-tools{width:100%;gap:7px}
+ .subgroups{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:auto;padding:3px}
+ .subgroups button{font-size:calc(13px * var(--text-scale));padding:9px 2px;white-space:normal;min-height:46px}
+ .filter-summary{font-size:calc(13px * var(--text-scale));margin-bottom:19px}
+ .cards{gap:15px}
+ .card-button{padding:20px 15px;grid-template-columns:62px minmax(0,1fr) 12px;gap:12px;min-height:165px}
+ .time-block{padding-right:10px}
+ .time-block b{font-size:calc(19px * var(--text-scale))}
+ .time-block small{font-size:calc(13px * var(--text-scale))}
+ .pair-no{font-size:calc(11px * var(--text-scale));padding-top:15px}
+ .title{font-size:calc(18px * var(--text-scale));line-height:1.45}
+ .lesson-top{gap:6px}
+ .lesson-type,.lesson-live{font-size:calc(10px * var(--text-scale));padding:3px 6px}
+ .lesson-top .subgroup-label{font-size:calc(11px * var(--text-scale));padding:4px 6px}
+ .lesson-meta{font-size:calc(13px * var(--text-scale));gap:8px 12px}
+ .lesson-meta .ui-icon{width:15px;height:15px}
+ .card-chevron .ui-icon{width:16px;height:16px}
+ .detail{margin-left:89px;margin-right:16px;padding-bottom:20px}
+ .detail p,.detail label{font-size:calc(14px * var(--text-scale))}
+ .workspace-foot{font-size:12px;gap:12px}
+ .workspace-foot>span:first-child{max-width:70%}
+ .footer{gap:5px;padding:10px max(10px,calc((100vw - 500px)/2)) calc(22px + env(safe-area-inset-bottom));box-shadow:0 -7px 24px #00000012;background:color-mix(in srgb,var(--bg) 95%,transparent)}
+ .footer button{font-size:12px;min-height:52px;padding:5px 2px;gap:6px}
+ .footer button.active{background:color-mix(in srgb,var(--a) 12%,var(--s))}
+ .footer button .ui-icon{width:24px;height:24px}
+ .footer .credit{font-size:9px;bottom:calc(6px + env(safe-area-inset-bottom));opacity:1}
+ .overlay{padding:0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:#0508089c}
+ .panel{border-radius:25px 25px 0 0;max-height:calc(100dvh - env(safe-area-inset-top) - 20px);padding:0 16px calc(20px + env(safe-area-inset-bottom));will-change:transform}
+ .panel:before{display:none}
+ .sheet-grip{display:flex;align-items:center;justify-content:center;flex:none;height:30px;touch-action:none;cursor:grab}
+ .sheet-grip span{height:5px;width:45px;border-radius:5px;background:var(--m);opacity:.7}
+ .panel-head{margin:3px 0 19px;touch-action:pan-x}
+ .panel-head h2{font-size:calc(25px * var(--text-scale))}
+ .panel-body{padding:2px 1px 8px;overscroll-behavior:contain;scrollbar-gutter:auto}
+ .menu-item{font-size:calc(16px * var(--text-scale));padding:15px;min-height:60px}
+ .menu-item small{font-size:calc(13px * var(--text-scale))}
+ .grid{gap:10px;grid-template-columns:1fr}
+ .choice{padding:16px;min-height:76px}
+ .choice strong{font-size:calc(17px * var(--text-scale))}
+ .choice small{font-size:calc(13px * var(--text-scale))}
+ .pill{font-size:calc(14px * var(--text-scale));min-height:46px}
+ .row{gap:8px}
+ .toast{bottom:calc(105px + env(safe-area-inset-bottom))}
+ #onboard .panel{padding:25px 20px calc(24px + env(safe-area-inset-bottom))}
+ #onboard .panel-head h2{font-size:29px}
+ #onboard .muted{font-size:14px}
+ #onboard .lang-grid button{padding:13px;min-height:68px;font-size:17px}
+ #onboard .lang-grid small{font-size:12px}
+ .update-banner{padding:12px;margin-bottom:20px}
+}
+@media(max-width:360px){
+ .workspace{padding:20px 12px calc(112px + env(safe-area-inset-bottom))}
+ .header h1{font-size:29px}
+ .eyebrow{font-size:9px}
+ .header-actions{gap:3px}
+ .header .icon,.offline-pill{width:44px;height:44px;min-width:44px}
+ .header{gap:5px}
+ .toolbar-top{display:grid;grid-template-columns:minmax(0,1fr);gap:13px}
+ .group-copy strong{font-size:calc(21px * var(--text-scale))}
+ .group-copy small{font-size:calc(13px * var(--text-scale))}
+ .weekbar{margin:0;justify-content:space-between;background:var(--s);border:1px solid var(--l);border-radius:13px;padding:2px}
+ .weekbar .week-title{display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;flex:1}
+ .week-title .week-type{font-size:12px}
+ .day-nav{gap:4px}
+ .day-nav button{min-height:90px;border-radius:12px;gap:5px}
+ .day-nav small{font-size:26px}
+ .day-dots{gap:1.5px}
+ .day-dots i{width:3px;height:3px}
+ .current-panel{padding:17px}
+ .summary h2{font-size:calc(22px * var(--text-scale))}
+ .subgroups button{font-size:calc(12px * var(--text-scale));padding:8px 2px;min-height:46px}
+ .card-button{grid-template-columns:55px minmax(0,1fr) 10px;padding:18px 12px;gap:10px}
+ .time-block b{font-size:calc(18px * var(--text-scale))}
+ .time-block small{font-size:calc(13px * var(--text-scale))}
+ .title{font-size:calc(17px * var(--text-scale))}
+ .lesson-meta{font-size:calc(13px * var(--text-scale))}
+ .detail{margin-left:77px;margin-right:13px}
+ .panel{padding-inline:14px}
+ .countdown-row strong{font-size:32px}
+ .footer{padding-inline:7px;gap:3px}
+ .footer button{font-size:11px;min-height:52px;padding:5px 1px}
+}
+@media(prefers-reduced-motion:reduce){.panel{will-change:auto}.card{backdrop-filter:none;-webkit-backdrop-filter:none}}
+
+@media(max-width:760px){#modal.is-closing .panel{animation:mobile-sheet-out .24s var(--ease) forwards}}
+@keyframes mobile-sheet-out{from{transform:translateY(var(--sheet-offset,0px));opacity:1}to{transform:translateY(100%);opacity:.5}}
+.sidebar{overflow-y:auto;overscroll-behavior:contain;gap:28px}
+.group-pin-mark{font-size:.7em;color:var(--a);vertical-align:middle}
+.header>div:first-child{min-width:0}.header h1{overflow-wrap:anywhere}
+.utility-actions .offline-pill{padding:8px 12px;width:auto;height:auto;min-width:0;min-height:44px;max-width:none;gap:7px;background:var(--s);border:1px solid var(--l);border-radius:12px;font-size:12px}
+.utility-actions #offlineLabel{position:static;width:auto;height:auto;clip-path:none;white-space:normal;overflow:visible}
+.utility-actions .offline-symbol{display:none}
+.utility-actions .offline-pill>i{position:static;width:6px;height:6px}
+@media(max-width:760px){.status.idle .status-text{grid-template-columns:minmax(0,1fr) auto;gap:5px 12px}.status.idle b{grid-row:1;grid-column:1}.status.idle .status-clock{grid-column:2;grid-row:1 / span 2;font-size:31px}.status.idle .ufa-time{grid-column:1;grid-row:2}}
+@media(max-width:760px){.toolbar-top{display:grid;grid-template-columns:minmax(0,1fr);gap:13px}.weekbar{width:100%;margin:0;justify-content:space-between;background:var(--s);border:1px solid var(--l);border-radius:13px;padding:2px}.weekbar .week-title{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;font-size:14px}.week-title .week-type{font-size:12px}}
 </style>
 </head>
 <body>
@@ -55,17 +322,19 @@
     <div class="sidebar-bottom"><p class="nav-label" data-i18n="preferences"></p><div class="side-nav" id="utilityNav"></div><p class="sidebar-note"><span data-i18n="campusCity"></span><span data-i18n="semesterLabel"></span></p></div>
   </aside>
   <main class="workspace">
-    <header class="header"><div><div class="eyebrow" id="eyebrow"></div><h1 id="appTitle"></h1></div><div class="header-actions"><button class="offline-pill" id="offlineShortcut" data-action="offline" aria-haspopup="dialog"><i aria-hidden="true"></i><span class="offline-symbol" data-icon="offline"></span><span id="offlineLabel"></span></button><button class="icon" data-action="search" id="searchButton" aria-label="Search"></button><button class="icon" data-action="menu" id="menuButton" aria-label="Menu"></button></div></header>
+    <header class="header"><div><div class="eyebrow" id="eyebrow"></div><h1 id="appTitle"></h1></div><div class="header-actions"><button class="icon support-shortcut" data-action="support" id="supportButton" aria-label="Поддержка"></button><button class="icon" data-action="search" id="searchButton" aria-label="Search"></button><button class="icon" data-action="menu" id="menuButton" aria-label="Menu"></button></div></header>
+    <div class="utility-strip"><span class="data-info" id="dataInfo"></span><div class="utility-actions"><button class="offline-pill" id="offlineShortcut" data-action="offline" aria-haspopup="dialog"><i aria-hidden="true"></i><span class="offline-symbol" data-icon="offline"></span><span id="offlineLabel"></span></button><button class="quick-today" id="quickToday" data-action="today"></button><button class="install-shortcut" id="installShortcut" data-action="install" hidden></button></div></div>
+    <div class="update-banner" id="updateBanner" hidden><button id="updateDetails" data-action="updates"></button><button class="icon" id="dismissUpdate" data-action="dismissUpdate">✕</button></div>
     <div class="dashboard">
-      <section class="schedule-toolbar"><div class="toolbar-top"><button class="group-switch" data-action="groups" id="groupButton" aria-haspopup="dialog"></button><div class="weekbar"><button id="prevWeek" data-action="prevWeek" aria-label="Previous week"></button><button class="week-title" id="weekLabel" data-action="week" aria-haspopup="dialog"></button><button id="nextWeek" data-action="nextWeek" aria-label="Next week"></button></div></div><nav class="day-nav" id="dayNav"></nav></section>
-      <section class="agenda"><div class="agenda-heading"><div class="summary"><h2 id="summaryTitle"></h2><span id="summaryCount"></span></div><div class="subgroups" id="subgroups"></div></div><div class="search-field" id="searchBox" hidden><span id="searchFieldIcon"></span><input id="lessonSearch" type="search" autocomplete="off"><button id="clearSearchButton" data-action="clearSearch" aria-label="Clear">✕</button></div><section class="cards" id="cards" aria-live="polite"></section><div class="agenda-end" id="agendaEnd" data-i18n="dayEnd"></div></section>
+      <section class="schedule-toolbar"><div class="toolbar-top"><button class="group-switch" data-action="groups" id="groupButton" aria-haspopup="dialog"></button><div class="weekbar"><button id="prevWeek" data-action="prevWeek" aria-label="Previous week"></button><button class="week-title" id="weekLabel" data-action="week" aria-haspopup="dialog"></button><button id="nextWeek" data-action="nextWeek" aria-label="Next week"></button></div></div><nav class="quick-groups" id="quickGroups" hidden></nav><nav class="day-nav" id="dayNav"></nav></section>
+      <section class="agenda"><div class="agenda-heading"><div class="summary"><h2 id="summaryTitle"></h2><span id="summaryCount"></span></div><div class="subgroup-tools"><div class="subgroups" id="subgroups" role="group"></div><button class="remember-filter" id="rememberSubgroup" data-action="pinSubgroup" aria-pressed="false"></button></div></div><p class="filter-summary" id="filterSummary" aria-live="polite"></p><div class="search-field" id="searchBox" hidden><span id="searchFieldIcon"></span><input id="lessonSearch" type="search" autocomplete="off"><button id="clearSearchButton" data-action="clearSearch" aria-label="Clear">✕</button></div><section class="cards" id="cards" aria-live="polite"></section><div class="agenda-end" id="agendaEnd" data-i18n="dayEnd"></div></section>
       <aside class="insights"><section class="current-panel"><div class="section-overline"><span data-i18n="rightNow"></span><span data-icon="clock"></span></div><div class="status" id="status" role="timer" aria-live="off"></div><button class="text-link" data-action="today"><span data-i18n="backToToday"></span><span data-icon="arrowUpRight"></span></button></section><section class="week-panel" id="weekOverviewPanel"></section><button class="notes-cta" data-action="notes"><span data-icon="notes"></span><span><strong data-i18n="notes"></strong><small data-i18n="notesHint"></small></span><span class="arrow" aria-hidden="true">↗</span></button></aside>
     </div>
     <footer class="workspace-foot"><span data-i18n="footerNote"></span><span class="credit">by csenchis</span></footer>
   </main>
 </div>
 <footer class="footer" id="footer"></footer>
-<div class="overlay" id="modal" hidden><div class="panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="panel-head"><h2 id="modalTitle" tabindex="-1"></h2><button class="icon" id="closeModalButton" data-action="close" aria-label="Close">✕</button></div><div class="panel-body" id="modalBody"></div></div></div>
+<div class="overlay" id="modal" hidden><div class="panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="sheet-grip" aria-hidden="true"><span></span></div><div class="panel-head"><h2 id="modalTitle" tabindex="-1"></h2><button class="icon" id="closeModalButton" data-action="close" aria-label="Close">✕</button></div><div class="panel-body" id="modalBody"></div></div></div>
 <div class="overlay" id="onboard" hidden><div class="panel" role="dialog" aria-modal="true" aria-labelledby="onboardTitle"><div class="welcome-mark" data-icon="globe"></div><div class="panel-head"><h2 id="onboardTitle">Привет. Hello.</h2></div><p class="muted">Выберите язык расписания. Изменить его можно в меню.<br>Choose your language. You can change it anytime in the menu.</p><div class="lang-grid" id="onboardLanguages"></div></div></div>
 <div class="toast" id="toast" role="status"></div>
 <script>
@@ -123,11 +392,14 @@ pt:{workspaceTitle:'Horário',studentSpace:'AGENDA DO ESTUDANTE',yourSpace:'O me
 };
 for(const [lang,dict] of Object.entries(DESIGN_I18N)){Object.assign(I18N[lang],dict);I18N[lang].themeNames.push(dict.graphiteTheme)}
 
+const COMFORT_I18N={"ru":{"support":"Поддержка","supportHint":"Нашли ошибку в расписании или есть предложение? Напишите автору.","copyDetails":"Скопировать данные для обращения","supportPrivacy":"Кнопка копирует только группу, неделю, подгруппу и версию сайта. Отправить их можно самостоятельно.","allGroups":"Вся группа","pinnedGroups":"Закреплённые группы","recentGroups":"Недавние группы","allGroupChoices":"Группы по курсу","groupsFound":"Найдено групп: {n}","groupPinned":"{group} — в быстром доступе","groupUnpinned":"{group} откреплена","filterAll":"Показаны обе подгруппы и общие пары","filterSelected":"{filter} + общие пары","onlyCommonToday":"В этот день все пары общие","noSplitInSource":"В таблице этой группы нет деления на подгруппы","noSubgroupToday":"Для выбранной подгруппы пар нет","savedForGroup":"Выбор сохранён для этой группы","filterSaved":"{filter} — выбор сохранён","filterUnsaved":"Закрепление подгруппы снято","savedFilter":"Сохранено: {filter}","pinSubgroup":"Сохранять выбранную подгруппу","unpinSubgroup":"Не закреплять подгруппу","dataVersion":"Версия расписания: {date}","allGroupsSaved":"Все группы встроены","usingSaved":"Без сети · сохранённые данные","newVersionReady":"Доступна новая версия · обновить","updates":"Изменения расписания","scheduleChanged":"Изменений для {group}: {n}","updateHint":"Сравниваем расписание с версией, которую вы уже открывали на этом устройстве.","noChanges":"Новых изменений нет","firstSnapshot":"После следующего обновления здесь будут видны добавленные, отменённые и перенесённые пары.","added":"Добавлено / новое время","removed":"Убрано / прежнее время","notifyChanges":"Уведомлять об изменениях","notificationsOn":"Включены","notificationsOff":"Выключены","notificationScope":"Изменения проверяются при открытии сайта и пока он открыт. Фоновая доставка при закрытом приложении пока недоступна.","notificationsUnavailable":"Уведомления недоступны. Откройте сайт по HTTPS в поддерживаемом браузере.","notificationsEnabled":"Уведомления включены","notificationsDenied":"Разрешение не выдано. Его можно изменить в настройках сайта в браузере.","displaySettings":"Экран и читаемость","textSize":"Размер текста","textComfortable":"Удобный","textLarge":"Крупный","textComfortableHint":"Крупные подписи и кнопки для телефона","textLargeHint":"Ещё на 15% больше","motionHint":"Анимации учитывают системную настройку «Уменьшение движения». Меню можно закрыть крестиком, касанием фона или свайпом вниз за верхнюю часть.","notInstalled":"Как установить приложение","secureNeeded":"Для установки нужен HTTPS. После настройки домена откройте сайт по https://.","installBrowserHint":"Если кнопки установки нет, откройте меню браузера и выберите «Установить приложение» или «На главный экран». На iPhone используйте Safari → «Поделиться» → «На экран Домой».","installedHere":"Открыто как приложение","searchGroup":"Группа, курс или форма обучения","filterLabel":"Фильтр подгруппы","first":"1-я подгруппа","second":"2-я подгруппа"},"en":{"support":"Support","supportHint":"Found a timetable error or have a suggestion? Contact the author.","copyDetails":"Copy details for support","supportPrivacy":"This copies only your group, week, subgroup and app version. You can then send the details yourself.","allGroups":"Whole group","pinnedGroups":"Pinned groups","recentGroups":"Recent groups","allGroupChoices":"Groups by year","groupsFound":"Groups found: {n}","groupPinned":"{group} added to quick access","groupUnpinned":"{group} unpinned","filterAll":"Showing both subgroups and shared classes","filterSelected":"{filter} + shared classes","onlyCommonToday":"All classes on this day are shared","noSplitInSource":"The source timetable has no subgroup split for this group","noSubgroupToday":"No classes for the selected subgroup","savedForGroup":"Selection saved for this group","filterSaved":"{filter} preference saved","filterUnsaved":"Subgroup preference unpinned","savedFilter":"Saved: {filter}","pinSubgroup":"Remember this subgroup","unpinSubgroup":"Unpin subgroup preference","dataVersion":"Timetable version: {date}","allGroupsSaved":"All groups included","usingSaved":"Offline · saved data","newVersionReady":"New version ready · refresh","updates":"Timetable changes","scheduleChanged":"{n} timetable changes for {group}","updateHint":"We compare the timetable with the version previously opened on this device.","noChanges":"No new changes","firstSnapshot":"After the next update, added, cancelled and moved classes will appear here.","added":"Added / new time","removed":"Removed / previous time","notifyChanges":"Notify me about changes","notificationsOn":"Enabled","notificationsOff":"Disabled","notificationScope":"Changes are checked when the app opens and while it is open. Delivery while the app is closed is not available yet.","notificationsUnavailable":"Notifications unavailable. Open the HTTPS site in a supported browser.","notificationsEnabled":"Notifications enabled","notificationsDenied":"Permission not granted. You can change it in the browser’s site settings.","displaySettings":"Display and readability","textSize":"Text size","textComfortable":"Comfortable","textLarge":"Large","textComfortableHint":"Readable labels and touch controls","textLargeHint":"Another 15% larger","motionHint":"Animations follow the system’s Reduce Motion setting. Close the menu with the cross, by tapping outside or by swiping its top down.","notInstalled":"How to install the app","secureNeeded":"Installation needs HTTPS. Once the domain is configured, open the https:// site.","installBrowserHint":"If no install button appears, use the browser menu → Install app or Add to Home screen. On iPhone use Safari → Share → Add to Home Screen.","installedHere":"Running as an app","searchGroup":"Group, year or study mode","filterLabel":"Subgroup filter","first":"Subgroup 1","second":"Subgroup 2"},"es":{"support":"Ayuda","supportHint":"¿Hay un error en el horario o tienes una sugerencia? Contacta con el autor.","copyDetails":"Copiar detalles para soporte","supportPrivacy":"Solo se copian el grupo, la semana, el subgrupo y la versión del sitio. Puedes enviarlos tú.","allGroups":"Todo el grupo","pinnedGroups":"Grupos fijados","recentGroups":"Grupos recientes","allGroupChoices":"Grupos por curso","groupsFound":"Grupos encontrados: {n}","groupPinned":"{group} añadido al acceso rápido","groupUnpinned":"{group} desfijado","filterAll":"Se muestran ambos subgrupos y las clases comunes","filterSelected":"{filter} + clases comunes","onlyCommonToday":"Todas las clases de este día son comunes","noSplitInSource":"El horario de origen no divide este grupo en subgrupos","noSubgroupToday":"No hay clases para el subgrupo elegido","savedForGroup":"Selección guardada para este grupo","filterSaved":"Preferencia guardada: {filter}","filterUnsaved":"Preferencia del subgrupo desfijada","savedFilter":"Guardado: {filter}","pinSubgroup":"Recordar este subgrupo","unpinSubgroup":"Desfijar preferencia de subgrupo","dataVersion":"Versión del horario: {date}","allGroupsSaved":"Todos los grupos incluidos","usingSaved":"Sin conexión · datos guardados","newVersionReady":"Nueva versión disponible · actualizar","updates":"Cambios del horario","scheduleChanged":"{n} cambios del horario de {group}","updateHint":"Comparamos el horario con la versión abierta antes en este dispositivo.","noChanges":"No hay cambios nuevos","firstSnapshot":"Tras la próxima actualización verás aquí las clases añadidas, canceladas o cambiadas.","added":"Añadida / nueva hora","removed":"Eliminada / hora anterior","notifyChanges":"Avisar de cambios","notificationsOn":"Activadas","notificationsOff":"Desactivadas","notificationScope":"Los cambios se comprueban al abrir el sitio y mientras permanece abierto. Aún no hay avisos con la aplicación cerrada.","notificationsUnavailable":"Avisos no disponibles. Abre el sitio con HTTPS en un navegador compatible.","notificationsEnabled":"Avisos activados","notificationsDenied":"Permiso no concedido. Puedes cambiarlo en los ajustes del sitio del navegador.","displaySettings":"Pantalla y legibilidad","textSize":"Tamaño del texto","textComfortable":"Cómodo","textLarge":"Grande","textComfortableHint":"Textos y botones legibles en el móvil","textLargeHint":"Un 15 % más grande","motionHint":"Las animaciones respetan «Reducir movimiento». Cierra el menú con la cruz, tocando fuera o deslizando su parte superior hacia abajo.","notInstalled":"Cómo instalar la aplicación","secureNeeded":"Se necesita HTTPS para instalar. Tras configurar el dominio, abre el sitio con https://.","installBrowserHint":"Si no aparece el botón, usa el menú del navegador → Instalar aplicación o Añadir a pantalla de inicio. En iPhone: Safari → Compartir → Añadir a pantalla de inicio.","installedHere":"Abierto como aplicación","searchGroup":"Grupo, curso o modalidad","filterLabel":"Filtro de subgrupo","first":"Subgrupo 1","second":"Subgrupo 2"},"fr":{"support":"Assistance","supportHint":"Une erreur dans le planning ou une suggestion ? Contactez l’auteur.","copyDetails":"Copier les détails pour l’assistance","supportPrivacy":"Seuls le groupe, la semaine, le sous-groupe et la version du site sont copiés. Vous pouvez ensuite les envoyer.","allGroups":"Groupe entier","pinnedGroups":"Groupes épinglés","recentGroups":"Groupes récents","allGroupChoices":"Groupes par année","groupsFound":"Groupes trouvés : {n}","groupPinned":"{group} ajouté à l’accès rapide","groupUnpinned":"{group} désépinglé","filterAll":"Les deux sous-groupes et les cours communs sont affichés","filterSelected":"{filter} + cours communs","onlyCommonToday":"Tous les cours de ce jour sont communs","noSplitInSource":"Le planning source ne divise pas ce groupe en sous-groupes","noSubgroupToday":"Aucun cours pour ce sous-groupe","savedForGroup":"Choix enregistré pour ce groupe","filterSaved":"Préférence enregistrée : {filter}","filterUnsaved":"Préférence de sous-groupe désépinglée","savedFilter":"Enregistré : {filter}","pinSubgroup":"Mémoriser ce sous-groupe","unpinSubgroup":"Ne plus épingler le sous-groupe","dataVersion":"Version du planning : {date}","allGroupsSaved":"Tous les groupes inclus","usingSaved":"Hors ligne · données enregistrées","newVersionReady":"Nouvelle version disponible · actualiser","updates":"Modifications du planning","scheduleChanged":"{n} modifications pour {group}","updateHint":"Le planning est comparé à la version déjà ouverte sur cet appareil.","noChanges":"Aucune nouvelle modification","firstSnapshot":"Après la prochaine mise à jour, les cours ajoutés, annulés ou déplacés apparaîtront ici.","added":"Ajouté / nouvel horaire","removed":"Supprimé / ancien horaire","notifyChanges":"M’avertir des modifications","notificationsOn":"Activées","notificationsOff":"Désactivées","notificationScope":"Les modifications sont vérifiées à l’ouverture et tant que le site reste ouvert. L’envoi lorsque l’application est fermée n’est pas encore disponible.","notificationsUnavailable":"Notifications indisponibles. Ouvrez le site HTTPS dans un navigateur compatible.","notificationsEnabled":"Notifications activées","notificationsDenied":"Autorisation non accordée. Vous pouvez la modifier dans les paramètres du site du navigateur.","displaySettings":"Affichage et lisibilité","textSize":"Taille du texte","textComfortable":"Confortable","textLarge":"Grand","textComfortableHint":"Libellés et boutons lisibles sur mobile","textLargeHint":"15 % plus grand","motionHint":"Les animations suivent le réglage « Réduire les animations ». Fermez le menu avec la croix, en touchant l’extérieur ou en faisant glisser le haut vers le bas.","notInstalled":"Installer l’application","secureNeeded":"L’installation nécessite HTTPS. Une fois le domaine configuré, ouvrez le site en https://.","installBrowserHint":"Sans bouton d’installation, utilisez le menu du navigateur → Installer l’application ou Ajouter à l’écran d’accueil. Sur iPhone : Safari → Partager → Sur l’écran d’accueil.","installedHere":"Ouvert en tant qu’application","searchGroup":"Groupe, année ou formation","filterLabel":"Filtre de sous-groupe","first":"Sous-groupe 1","second":"Sous-groupe 2"},"pt":{"support":"Apoio","supportHint":"Encontraste um erro no horário ou tens uma sugestão? Contacta o autor.","copyDetails":"Copiar detalhes para o apoio","supportPrivacy":"Apenas são copiados a turma, a semana, o subgrupo e a versão do site. Podes enviá-los depois.","allGroups":"Toda a turma","pinnedGroups":"Turmas fixadas","recentGroups":"Turmas recentes","allGroupChoices":"Turmas por ano","groupsFound":"Turmas encontradas: {n}","groupPinned":"{group} adicionado ao acesso rápido","groupUnpinned":"{group} desafixada","filterAll":"A mostrar os dois subgrupos e as aulas comuns","filterSelected":"{filter} + aulas comuns","onlyCommonToday":"Todas as aulas deste dia são comuns","noSplitInSource":"O horário de origem não divide esta turma em subgrupos","noSubgroupToday":"Sem aulas para o subgrupo escolhido","savedForGroup":"Escolha guardada para esta turma","filterSaved":"Preferência guardada: {filter}","filterUnsaved":"Preferência do subgrupo desafixada","savedFilter":"Guardado: {filter}","pinSubgroup":"Memorizar este subgrupo","unpinSubgroup":"Desafixar preferência do subgrupo","dataVersion":"Versão do horário: {date}","allGroupsSaved":"Todas as turmas incluídas","usingSaved":"Offline · dados guardados","newVersionReady":"Nova versão disponível · atualizar","updates":"Alterações do horário","scheduleChanged":"{n} alterações no horário de {group}","updateHint":"Comparamos o horário com a versão já aberta neste dispositivo.","noChanges":"Sem novas alterações","firstSnapshot":"Após a próxima atualização, verás aqui as aulas adicionadas, canceladas ou alteradas.","added":"Adicionada / nova hora","removed":"Removida / hora anterior","notifyChanges":"Avisar sobre alterações","notificationsOn":"Ativadas","notificationsOff":"Desativadas","notificationScope":"As alterações são verificadas ao abrir o site e enquanto estiver aberto. Ainda não há envio com a aplicação fechada.","notificationsUnavailable":"Notificações indisponíveis. Abre o site HTTPS num navegador compatível.","notificationsEnabled":"Notificações ativadas","notificationsDenied":"Permissão não concedida. Podes alterá-la nas definições do site no navegador.","displaySettings":"Ecrã e legibilidade","textSize":"Tamanho do texto","textComfortable":"Confortável","textLarge":"Grande","textComfortableHint":"Textos e botões legíveis no telemóvel","textLargeHint":"Mais 15% de tamanho","motionHint":"As animações respeitam «Reduzir movimento». Fecha o menu na cruz, tocando fora ou deslizando a parte superior para baixo.","notInstalled":"Como instalar a aplicação","secureNeeded":"É necessário HTTPS para instalar. Após configurar o domínio, abre o site com https://.","installBrowserHint":"Se o botão não aparecer, usa o menu do navegador → Instalar aplicação ou Adicionar ao ecrã inicial. No iPhone: Safari → Partilhar → Ecrã principal.","installedHere":"Aberto como aplicação","searchGroup":"Turma, ano ou modalidade","filterLabel":"Filtro de subgrupo","first":"Subgrupo 1","second":"Subgrupo 2"}};
+for(const [lang,dict] of Object.entries(COMFORT_I18N))Object.assign(I18N[lang],dict);
+
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 function uiIcon(name){
  const aliases={'🎯':'today','🗓':'week','↗':'share','☰':'menu','👨‍🏫':'teachers','📌':'notes','🔔':'bells','📋':'copy','⬇':'download','◉':'offline'};
- const shapes={schedule:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 9v12m5-7h3m-3 3h3"/>',groups:'<path d="m3 8 9-5 9 5-9 5-9-5Zm4 3v6l5 3 5-3v-6m4-3v9"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',chevronRight:'<path d="m9 5 7 7-7 7"/>',chevronLeft:'<path d="m15 5-7 7 7 7"/>',chevronDown:'<path d="m5 9 7 7 7-7"/>',arrowUpRight:'<path d="M6 18 18 6M6 6h12v12"/>',person:'<circle cx="12" cy="7" r="3"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/>',pin:'<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/>',globe:'<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',palette:'<path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-4c-1-1 0-2 1-2h2a4 4 0 0 0 4-4 9 9 0 0 0-9-8Z"/><path d="M7 10h.01M10 6.5h.01M15 7h.01M18 11h.01" stroke-width="3"/>',settings:'<path d="M3 6h18M3 12h18M3 18h18"/><circle cx="8" cy="6" r="2" fill="var(--bg)"/><circle cx="16" cy="12" r="2" fill="var(--bg)"/><circle cx="10" cy="18" r="2" fill="var(--bg)"/>',today:'<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/>',week:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h1m6 0h1m-8 3h1m6 0h1"/>',share:'<path d="M12 15V3m-4 4 4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',teachers:'<circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2m3-15a3 3 0 0 1 0 6m0 3a5 5 0 0 1 3 4v2"/>',notes:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Zm0 0v6h6M8 13h8m-8 4h5"/>',bells:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-9 13h6"/>',copy:'<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/>',download:'<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>',offline:'<path d="M7 16a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 0 1 1 9m-10 3 3 3 6-7"/>'};
+ const shapes={star:'<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>',bookmark:'<path d="M6 3h12v18l-6-4-6 4V3Z"/>',support:'<path d="M4 14v-3a8 8 0 0 1 16 0v3M4 11H3v6h4v-6H4Zm16 0h1v6h-4v-6h3Zm0 6c0 3-3 4-8 4"/>',schedule:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 9v12m5-7h3m-3 3h3"/>',groups:'<path d="m3 8 9-5 9 5-9 5-9-5Zm4 3v6l5 3 5-3v-6m4-3v9"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',chevronRight:'<path d="m9 5 7 7-7 7"/>',chevronLeft:'<path d="m15 5-7 7 7 7"/>',chevronDown:'<path d="m5 9 7 7 7-7"/>',arrowUpRight:'<path d="M6 18 18 6M6 6h12v12"/>',person:'<circle cx="12" cy="7" r="3"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/>',pin:'<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/>',globe:'<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',palette:'<path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-4c-1-1 0-2 1-2h2a4 4 0 0 0 4-4 9 9 0 0 0-9-8Z"/><path d="M7 10h.01M10 6.5h.01M15 7h.01M18 11h.01" stroke-width="3"/>',settings:'<path d="M3 6h18M3 12h18M3 18h18"/><circle cx="8" cy="6" r="2" fill="var(--bg)"/><circle cx="16" cy="12" r="2" fill="var(--bg)"/><circle cx="10" cy="18" r="2" fill="var(--bg)"/>',today:'<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/>',week:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h1m6 0h1m-8 3h1m6 0h1"/>',share:'<path d="M12 15V3m-4 4 4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',teachers:'<circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2m3-15a3 3 0 0 1 0 6m0 3a5 5 0 0 1 3 4v2"/>',notes:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Zm0 0v6h6M8 13h8m-8 4h5"/>',bells:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-9 13h6"/>',copy:'<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/>',download:'<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>',offline:'<path d="M7 16a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 0 1 1 9m-10 3 3 3 6-7"/>'};
  return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">${shapes[aliases[name]||name]||shapes.menu}</svg>`;
 }
 const read=(key,fallback='')=>{try{return localStorage.getItem(key)??fallback}catch{return fallback}};
@@ -137,7 +409,7 @@ const BASE_UTC=Date.UTC(2026,7,31),MAX_WEEK=17,UFATZ='Asia/Yekaterinburg';
 const ufaFormatter=new Intl.DateTimeFormat('en-GB',{timeZone:UFATZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
 const ufaClock=()=>Object.fromEntries(ufaFormatter.formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,+p.value]));
 const ufaDay=c=>new Date(Date.UTC(c.year,c.month-1,c.day)).getUTCDay();
-const THEMES=[['agro','🌾','#f3f6f1'],['cyber','🌌','#0a0d1c'],['amoled','🖤','#000000'],['light','☀️','#ffffff'],['tactical','🎯','#0b0f0a'],['sakura','🌸','#190d20'],['royal','👑','#0e0c09'],['matrix','💻','#020a04'],['ocean','🌊','#071d2b'],['lavender','🪻','#f5f0fb'],['sunset','🌅','#251226'],['graphite','◐','#101213']];
+const THEMES=[['agro','🌾','#f3f6f1'],['cyber','🌌','#0a0d1c'],['amoled','🖤','#000000'],['light','☀️','#ffffff'],['tactical','🎯','#0b0f0a'],['sakura','🌸','#190d20'],['royal','👑','#0e0c09'],['matrix','💻','#020a04'],['ocean','🌊','#071d2b'],['lavender','🪻','#f5f0fb'],['sunset','🌅','#251226'],['graphite','◐','#0c1118']];
 const currentWeek=()=>{const c=ufaClock();return Math.max(1,Math.min(MAX_WEEK,Math.floor((Date.UTC(c.year,c.month-1,c.day)-BASE_UTC)/604800000)+1))};
 const today=()=>ufaDay(ufaClock())||7;
 const dateOf=(week,day)=>new Date(BASE_UTC+((week-1)*7+day-1)*86400000);
@@ -145,8 +417,7 @@ const toMinutes=time=>+time.slice(0,2)*60+ +time.slice(3,5);
 const t=(key,vars={})=>String((I18N[state.lang]||I18N.ru)[key]??I18N.ru[key]??key).replace(/\{(\w+)\}/g,(_,id)=>vars[id]??'');
 const initialLanguage=read('bashgau_lang_v1');
 const state={lang:I18N[initialLanguage]?initialLanguage:'ru',group:DATA.groups[read('bash_grp')]?read('bash_grp'):'AIP101',week:currentWeek(),day:Math.min(today(),6),subgroup:+read('aip_sg')||0,groupLock:read('bash_glock'),subgroupLock:+read('bash_sg_lock')||0,theme:THEMES.some(([id])=>id===read('bash_theme'))?read('bash_theme'):'graphite',query:'',groupQuery:'',mode:'Очная',course:1,openCard:-1,modal:'',languageChosen:!!I18N[initialLanguage]};
-if(DATA.groups[state.groupLock])state.group=state.groupLock;
-if(state.subgroupLock)state.subgroup=state.subgroupLock;
+// The last selected group remains active; pinned groups are quick access shortcuts.
 const localeDate=date=>new Intl.DateTimeFormat(LOCALES[state.lang],{timeZone:'UTC',weekday:'long',day:'numeric',month:'long'}).format(date);
 const modeKey=mode=>({'Очная':'fullTime','Очно-заочная':'blended','Заочная':'partTime','Колледж':'college'})[mode]||'fullTime';
 const groupInfo=key=>DATA.infos[key]||{course:1,mode:'Очная'};
@@ -154,16 +425,18 @@ const groupsSorted=()=>Object.keys(DATA.groups).map(key=>({key,label:DATA.labels
 const subject=row=>state.lang==='ru'?DATA.subjects[row[3]]||'':SUBJECT_TRANSLATIONS[state.lang]?.[row[3]]||DATA.subjects[row[3]]||'';
 const teacher=row=>state.lang==='ru'?DATA.teachers[row[5]]||'':TEACHER_TRANSLATIONS[state.lang]?.[row[5]]||DATA.teachers[row[5]]||'';
 const room=value=>!value?'':state.lang==='ru'?value:({en:{'Д/О':'Online','Выезд':'Off-site','Кафедра':'Department','с/зал':'Gym'},es:{'Д/О':'En línea','Выезд':'Fuera del campus','Кафедра':'Departamento','с/зал':'Gimnasio'},fr:{'Д/О':'En ligne','Выезд':'Hors campus','Кафедра':'Département','с/зал':'Gymnase'},pt:{'Д/О':'Online','Выезд':'Fora do campus','Кафедра':'Departamento','с/зал':'Ginásio'}}[state.lang]?.[value]||value);
-const rowId=row=>[row[0],row[1],row[3],row[7],row[9]].join(':');
+const rowId=row=>[row[0],row[1],row[2],row[3],row[4],row[5],row[7],row[9],row[10],row[8].join(',')].join(':');
 const noteKey=row=>'note_'+state.group+'_'+DATA.subjects[row[3]];
 const noteValue=row=>read(noteKey(row));
 const formatWeek=row=>row[8].join(', ');
-function matchingRows(week=state.week,day=state.day,query=state.query){
- const needle=query.trim().toLocaleLowerCase('ru-RU');
- return (DATA.groups[state.group]||[]).filter(row=>row[8].includes(week)&&(!state.subgroup||!row[7]||row[7]===state.subgroup)&&
- (needle?`${subject(row)} ${teacher(row)} ${DATA.subjects[row[3]]} ${DATA.teachers[row[5]]} ${room(row[4])} ${row[4]} ${DATA.labels[state.group]}`.toLocaleLowerCase('ru-RU').includes(needle):row[0]===day));
+function matchingRows(week=state.week,day=state.day,query=state.query,subgroup=state.subgroup){
+ const needle=query.trim().toLocaleLowerCase('ru-RU'),selected=validSubgroup(subgroup);
+ return (DATA.groups[state.group]||[]).filter(row=>Array.isArray(row[8])&&row[8].some(n=>Number(n)===Number(week))&&
+ (!selected||Number(row[7])===0||Number(row[7])===selected)&&
+ (needle?`${subject(row)} ${teacher(row)} ${DATA.subjects[row[3]]} ${DATA.teachers[row[5]]} ${room(row[4])} ${row[4]} ${DATA.labels[state.group]}`.toLocaleLowerCase('ru-RU').includes(needle):Number(row[0])===Number(day)))
+ .sort((a,b)=>a[0]-b[0]||toMinutes(a[9])-toMinutes(b[9])||a[1]-b[1]||a[7]-b[7]);
 }
-function themeApply(){document.documentElement.dataset.theme=state.theme;document.querySelector('meta[name="theme-color"]').content=THEMES.find(([id])=>id===state.theme)?.[2]||'#101213'}
+function themeApply(){document.documentElement.dataset.theme=state.theme;document.querySelector('meta[name="theme-color"]').content=THEMES.find(([id])=>id===state.theme)?.[2]||'#0c1118'}
 function toast(message){const box=$('toast');box.textContent=message;box.classList.add('on');clearTimeout(toast.timer);toast.timer=setTimeout(()=>box.classList.remove('on'),2100)}
 function languageChoices(selected=''){
  return Object.entries(LANGUAGES).map(([code,label])=>`<button class="${code===selected?'on':''}" data-action="setLanguage" data-value="${code}"><span class="language-code" aria-hidden="true">${code.toUpperCase()}</span><span class="language-copy">${esc(label)}<small>${esc(I18N[code].app)}</small></span>${uiIcon('chevronRight')}</button>`).join('');
@@ -179,7 +452,7 @@ function render(animate=false){
  $('eyebrow').textContent=t('campusCity')+' / '+t('week',{n:state.week});$('appTitle').textContent=t('workspaceTitle');
  const nav=(action,icon,key,active=false)=>`<button class="nav-item ${active?'active':''}" data-action="${action}" aria-label="${esc(t(key))}">${uiIcon(icon)}<span>${esc(t(key))}</span></button>`;
  $('desktopNav').innerHTML=nav('today','schedule','scheduleNav',true)+nav('groups','groups','groupsNav')+nav('teachers','teachers','teachers')+nav('notes','notes','notes')+nav('bells','clock','bells');
- $('utilityNav').innerHTML=nav('themes','palette','themes')+nav('language','globe','language')+nav('menu','settings','menu');
+ $('utilityNav').innerHTML=nav('themes','palette','themes')+nav('language','globe','language')+nav('accessibility','settings','displaySettings')+nav('support','support','support')+nav('menu','menu','menu');
  $('searchButton').setAttribute('aria-label',t('search'));$('menuButton').setAttribute('aria-label',t('menu'));$('searchButton').innerHTML=uiIcon('search');$('menuButton').innerHTML=uiIcon('menu');$('searchFieldIcon').innerHTML=uiIcon('search');
  $('groupButton').innerHTML=`<span class="group-monogram">${uiIcon('groups')}</span><span class="group-copy"><strong>${esc(DATA.labels[state.group])}</strong><small>${esc(t('course',{n:groupInfo(state.group).course}))} · ${esc(t(modeKey(groupInfo(state.group).mode)))}</small></span><span class="chevron">${uiIcon('chevronDown')}</span>`;
  $('groupButton').setAttribute('aria-label',t('chooseGroup')+' · '+DATA.labels[state.group]);
@@ -194,7 +467,7 @@ function render(animate=false){
  $('prevWeek').disabled=state.week===1;$('nextWeek').disabled=state.week===MAX_WEEK;
  $('prevWeek').setAttribute('aria-label',t('previousWeek'));$('nextWeek').setAttribute('aria-label',t('nextWeek'));$('weekLabel').setAttribute('aria-label',t('weekSelector'));
  $('dayNav').setAttribute('aria-label',t('weekNavigation'));$('clearSearchButton').setAttribute('aria-label',t('clearSearch'));$('closeModalButton').setAttribute('aria-label',t('closed'));
- refreshOfflineHint();renderStatus();renderWeekOverview();renderCards(animate);
+ refreshOfflineHint();renderStatus();renderWeekOverview();renderCards(animate);renderUtilities();$('subgroups').setAttribute('aria-label',t('filterLabel'));
 }
 function renderStatus(){
  const c=ufaClock(),secondsNow=c.hour*3600+c.minute*60+c.second,day=ufaDay(c),rows=day===0?[]:matchingRows(currentWeek(),day,'');
@@ -205,7 +478,7 @@ function renderStatus(){
  else if(next){label=t('next')+' · '+t('pair',{n:next[1]});name=subject(next);countdown=clockCountdown(toMinutes(next[9])*60-secondsNow);caption=t('startsCaption')}
  else if(rows.length)label=t('finished');
  if(!$('statusLabel'))$('status').innerHTML='<i class="dot"></i><div class="status-text"><b id="statusLabel"></b><span class="status-clock" id="statusClock"></span><div class="countdown-row" id="countdownRow"><strong id="statusCountdown"></strong><span id="statusCaption"></span></div><small id="statusSubject"></small><span class="status-progress" id="statusProgress"><i id="statusProgressValue"></i></span><span class="ufa-time" id="statusUfa"></span></div>';
- $('status').classList.toggle('live',!!live);$('statusLabel').textContent=label;$('countdownRow').hidden=!countdown;
+ $('status').classList.toggle('live',!!live);$('status').classList.toggle('idle',!countdown);$('statusLabel').textContent=label;$('countdownRow').hidden=!countdown;
  $('statusClock').hidden=!!countdown;$('statusClock').textContent=String(c.hour).padStart(2,'0')+':'+String(c.minute).padStart(2,'0');
  $('statusCountdown').textContent=countdown;$('statusCaption').textContent=caption;$('statusSubject').textContent=name;$('statusSubject').hidden=!name;
  $('statusProgress').hidden=!live;$('statusProgressValue').style.width=progress.toFixed(1)+'%';
@@ -221,7 +494,7 @@ function renderCards(animate=false){
   const opened=state.openCard===rowId(row),actual=state.week===realWeek&&row[0]===realDay&&!state.query;
   const live=actual&&minutes>=toMinutes(row[9])&&minutes<toMinutes(row[10]);const past=actual&&minutes>=toMinutes(row[10]);
   const conflict=row[11]?.includes(state.week);
-  return `<article style="--stagger:${Math.min(index,5)*45}ms" class="card ${row[2]?'lec':'prac'} ${live?'live':''} ${past?'past':''}"><button class="card-button" data-action="expand" data-index="${index}" aria-expanded="${opened}"><span class="time-block"><b>${esc(row[9])}</b><small>${esc(row[10])}</small><span class="pair-no">${esc(t('pair',{n:row[1]}))}</span></span><span class="lesson-body"><span class="lesson-top"><span class="lesson-type">${esc(t(row[2]?'lecture':'practice'))}</span>${row[7]?`<span class="subgroup-label">${row[7]} ${esc(t('sgShort'))}</span>`:''}${state.query?`<span class="subgroup-label">${esc(I18N[state.lang].shortDays[row[0]-1])}</span>`:''}${live?`<span class="lesson-live">${esc(t('now'))}</span>`:''}${conflict?`<span title="${esc(t('sourceConflict'))}">⚠️</span>`:''}</span><span class="title">${esc(subject(row))}</span><span class="lesson-meta">${row[4]?`<span>${uiIcon('pin')}${esc(room(row[4]))}</span>`:''}<span>${uiIcon('person')}${esc(teacher(row)||t('noTeacher'))}</span></span></span><span class="card-chevron">${uiIcon('chevronRight')}</span></button>${opened?`<div class="detail"><p>${esc(t('teacher'))}: <b>${esc(teacher(row)||t('noTeacher'))}</b></p><p>${esc(t('weeks'))}: <b>${esc(formatWeek(row))}</b></p>${conflict?`<p>⚠️ ${esc(t('sourceConflict'))}</p>`:''}<label for="noteText">${esc(t('note'))}</label><input id="noteText" data-note-index="${index}" value="${esc(noteValue(row))}" placeholder="${esc(t('notePlaceholder'))}"></div>`:''}</article>`;
+  return `<article style="--stagger:${Math.min(index,5)*45}ms" class="card ${row[2]?'lec':'prac'} ${live?'live':''} ${past?'past':''}"><button class="card-button" data-action="expand" data-index="${index}" aria-expanded="${opened}"><span class="time-block"><b>${esc(row[9])}</b><small>${esc(row[10])}</small><span class="pair-no">${esc(t('pair',{n:row[1]}))}</span></span><span class="lesson-body"><span class="lesson-top"><span class="lesson-type">${esc(t(row[2]?'lecture':'practice'))}</span><span class="subgroup-label">${esc(row[7]?subgroupName(Number(row[7])):t('allGroups'))}</span>${state.query?`<span class="subgroup-label">${esc(I18N[state.lang].shortDays[row[0]-1])}</span>`:''}${live?`<span class="lesson-live">${esc(t('now'))}</span>`:''}${conflict?`<span title="${esc(t('sourceConflict'))}">⚠️</span>`:''}</span><span class="title">${esc(subject(row))}</span><span class="lesson-meta">${row[4]?`<span>${uiIcon('pin')}${esc(room(row[4]))}</span>`:''}<span>${uiIcon('person')}${esc(teacher(row)||t('noTeacher'))}</span></span></span><span class="card-chevron">${uiIcon('chevronRight')}</span></button>${opened?`<div class="detail"><p>${esc(t('teacher'))}: <b>${esc(teacher(row)||t('noTeacher'))}</b></p><p>${esc(t('weeks'))}: <b>${esc(formatWeek(row))}</b></p>${conflict?`<p>⚠️ ${esc(t('sourceConflict'))}</p>`:''}<label for="noteText">${esc(t('note'))}</label><input id="noteText" data-note-index="${index}" value="${esc(noteValue(row))}" placeholder="${esc(t('notePlaceholder'))}"></div>`:''}</article>`;
  }).join(''):`<div class="empty"><span class="empty-icon">${uiIcon('schedule')}</span><strong>${esc(t(state.query?'noSearch':'noLessons'))}</strong><span>${esc(t('noLessonsHint'))}</span></div>`;
  const cards=$('cards');if(lastCardMarkup!==markup){lastCardMarkup=markup;cards.classList.toggle('is-changing',animate);cards.innerHTML=markup}
 }
@@ -229,7 +502,7 @@ let modalCloseTimer=0,returnFocus=null;
 const reducedMotion=()=>window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 function syncOverlays(){const locked=!$('modal').hidden||!$('onboard').hidden;document.body.classList.toggle('modal-open',locked);$('appShell').inert=locked;$('footer').inert=locked}
 function openModal(kind){
- clearTimeout(modalCloseTimer);const wasHidden=$('modal').hidden;
+ clearTimeout(modalCloseTimer);const sheet=$('modal').querySelector('.panel');for(const property of ['transform','transition','animation','--sheet-offset'])sheet.style.removeProperty(property);const wasHidden=$('modal').hidden;
  if(wasHidden)returnFocus=document.activeElement;
  state.modal=kind;$('modal').hidden=false;$('modal').classList.remove('is-closing');renderModal();$('modalBody').scrollTop=0;syncOverlays();
  if(!reducedMotion()&&$('modalBody').animate)$('modalBody').animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:300,easing:'cubic-bezier(.16,1,.3,1)'});
@@ -239,18 +512,19 @@ function closeModal(){
  state.modal='';clearTimeout(modalCloseTimer);
  const finish=()=>{$('modal').hidden=true;$('modal').classList.remove('is-closing');syncOverlays();if($('onboard').hidden)(returnFocus?.isConnected?returnFocus:$('menuButton')).focus({preventScroll:true})};
  if($('modal').hidden||reducedMotion()){finish();return}
- $('modal').classList.add('is-closing');modalCloseTimer=setTimeout(finish,210);
+ $('modal').classList.add('is-closing');modalCloseTimer=setTimeout(finish,240);
 }
 function renderModal(){if(!state.modal)return;const body=$('modalBody'),title=$('modalTitle');
+ if(state.modal==='support'){renderSupport();return}if(state.modal==='accessibility'){renderAccessibility();return}if(state.modal==='updates'){renderUpdates();return}
  if(state.modal==='menu'){
- title.textContent=t('menu');body.innerHTML=`<h3>${esc(t('group'))}</h3><button class="menu-item" data-action="groups"><span>${esc(DATA.labels[state.group])}</span><small>${esc(t('change'))} ›</small></button><button class="menu-item" data-action="pinGroup">${esc(t(state.groupLock?'unpinGroup':'pinGroup'))}<small>${state.groupLock?'🔒':'🔓'}</small></button><button class="menu-item" data-action="pinSubgroup">${esc(t(state.subgroupLock?'unpinSubgroup':'pinSubgroup'))}<small>${state.subgroupLock?'🔒':'🔓'}</small></button><h3>${esc(t('language'))}</h3><button class="menu-item" data-action="language">${esc(t('changeLanguage'))}<small>${esc(LANGUAGES[state.lang])} ›</small></button><h3>${esc(t('themes'))}</h3><button class="menu-item" data-action="themes">${esc(t('theme'))}<small>${esc(I18N[state.lang].themeNames[THEMES.findIndex(([id])=>id===state.theme)])} ›</small></button><h3>${esc(t('menu'))}</h3>${[['week','weekOverview','🗓'],['teachers','teachers','👨‍🏫'],['notes','notes','📌'],['bells','bells','🔔'],['share','share','↗'],['copy','copy','📋'],['offline','offlineTitle','◉'],['download','download','⬇']].map(([a,k,icon])=>`<button class="menu-item" data-action="${a}"><span>${uiIcon(icon)} ${esc(t(k))}</span><span>›</span></button>`).join('')}<p class="muted">${esc(t('officialNames'))} ${esc(t('offline'))}.</p>`;return;
+ title.textContent=t('menu');body.innerHTML=`<h3>${esc(t('group'))}</h3><button class="menu-item" data-action="groups"><span>${uiIcon('groups')}${esc(DATA.labels[state.group])}</span><small>${esc(t('change'))} ›</small></button><button class="menu-item" data-action="pinGroup" aria-pressed="${groupPinned()}"><span>${uiIcon('star')}${esc(t(groupPinned()?'unpinGroup':'pinGroup'))}</span><small>${esc(t(groupPinned()?'lockOn':'lockOff'))}</small></button><button class="menu-item" data-action="pinSubgroup" aria-pressed="${subgroupSaved()}"><span class="menu-copy">${esc(t(subgroupSaved()?'unpinSubgroup':'pinSubgroup'))}<small>${esc(subgroupName())} · ${esc(DATA.labels[state.group])}</small></span>${uiIcon('bookmark')}</button><h3>${esc(t('preferences'))}</h3><button class="menu-item" data-action="language"><span>${uiIcon('globe')}${esc(t('changeLanguage'))}</span><small>${esc(LANGUAGES[state.lang])} ›</small></button><button class="menu-item" data-action="themes"><span>${uiIcon('palette')}${esc(t('theme'))}</span><small>${esc(I18N[state.lang].themeNames[THEMES.findIndex(([id])=>id===state.theme)])} ›</small></button><button class="menu-item" data-action="accessibility"><span>${uiIcon('settings')}${esc(t('displaySettings'))}</span><span>›</span></button><h3>${esc(t('menu'))}</h3>${[['week','weekOverview','week'],['teachers','teachers','teachers'],['notes','notes','notes'],['bells','bells','bells'],['updates','updates','bells'],['share','share','share'],['copy','copy','copy'],['offline','offlineTitle','offline'],['download','download','download'],['support','support','support']].map(([a,k,icon])=>`<button class="menu-item" data-action="${a}"><span>${uiIcon(icon)} ${esc(t(k))}</span><span>›</span></button>`).join('')}<p class="muted">${esc(t('officialNames'))} ${esc(t('offline'))}.</p>`;return;
  }
  if(state.modal==='offline'){
- title.textContent=t('offlineTitle');body.innerHTML=`<p class="muted">${esc(t('offlineIntro'))}</p><div class="offline-state" id="offlineModalState"></div><section class="offline-platform"><h3>${esc(t('androidTitle'))}</h3><p>${esc(t('androidHint'))}</p></section><section class="offline-platform"><h3>${esc(t('iphoneTitle'))}</h3><p>${esc(t('iphoneHint'))}</p></section>${installPrompt?`<button class="primary" data-action="install">${esc(t('installApp'))}</button>`:''}<button class="primary" data-action="download">↓ ${esc(t('download'))}</button><p class="muted">${esc(t('offlineNote'))}</p>`;refreshOfflineHint();return;
+ title.textContent=t('offlineTitle');body.innerHTML=`<p class="muted">${esc(t('offlineIntro'))}</p><div class="offline-state" id="offlineModalState"></div><section class="offline-platform"><h3>${esc(t('androidTitle'))}</h3><p>${esc(t('androidHint'))}</p></section><section class="offline-platform"><h3>${esc(t('iphoneTitle'))}</h3><p>${esc(t('iphoneHint'))}</p></section>${installPrompt?`<button class="primary" data-action="install">${esc(t('installApp'))}</button>`:`<section class="offline-platform"><h3>${esc(t(window.matchMedia?.('(display-mode: standalone)').matches||navigator.standalone===true?'installedHere':'notInstalled'))}</h3><p>${esc(t(window.isSecureContext?'installBrowserHint':'secureNeeded'))}</p></section>`}<button class="primary" data-action="download">↓ ${esc(t('download'))}</button><p class="muted">${esc(t('offlineNote'))}</p>`;refreshOfflineHint();return;
  }
  if(state.modal==='groups'){
  const info=groupInfo(state.group);if(!state.mode||!groupsSorted().some(g=>g.mode===state.mode)){state.mode=info.mode;state.course=info.course}
- title.textContent=t('chooseGroup');body.innerHTML=`<input class="input" id="groupSearch" type="search" placeholder="${esc(t('searchGroup'))}" value="${esc(state.groupQuery)}"><div class="row" id="modeTabs"></div><div class="row" id="courseTabs"></div><div class="grid" id="groupChoices"></div>`;renderGroupChoices();return;
+ title.textContent=t('chooseGroup');body.innerHTML=`<input class="input" id="groupSearch" type="search" autocomplete="off" aria-label="${esc(t('searchGroup'))}" placeholder="${esc(t('searchGroup'))}" value="${esc(state.groupQuery)}"><div class="row" id="modeTabs"></div><div class="row" id="courseTabs"></div><section class="group-section" id="pinnedGroupChoices"></section><section class="group-section" id="recentGroupChoices"></section><h3 id="allGroupsHeading"></h3><p class="group-results-count" id="groupResultsCount"></p><div class="grid" id="groupChoices"></div>`;renderGroupChoices();return;
  }
  if(state.modal==='language'){
  title.textContent=t('changeLanguage');body.innerHTML=`<div class="lang-grid">${languageChoices(state.lang)}</div>`;return;
@@ -276,12 +550,20 @@ function renderModal(){if(!state.modal)return;const body=$('modalBody'),title=$(
  }
 
 }
-function renderGroupChoices(){const all=groupsSorted(),modes=['Очная','Очно-заочная','Заочная','Колледж'].filter(mode=>all.some(g=>g.mode===mode)),query=state.groupQuery.toLocaleLowerCase('ru-RU').trim();
- $('modeTabs').innerHTML=modes.map(mode=>`<button class="pill ${state.mode===mode?'on':''}" data-action="mode" data-value="${mode}">${esc(t(modeKey(mode)))}</button>`).join('');
+function renderGroupChoices(){
+ const all=groupsSorted(),modes=['Очная','Очно-заочная','Заочная','Колледж'].filter(mode=>all.some(g=>g.mode===mode)),query=state.groupQuery.toLocaleLowerCase('ru-RU').trim();
+ $('modeTabs').innerHTML=modes.map(mode=>`<button class="pill ${state.mode===mode?'on':''}" data-action="mode" data-value="${mode}" aria-pressed="${state.mode===mode}">${esc(t(modeKey(mode)))}</button>`).join('');
  const courses=[...new Set(all.filter(g=>g.mode===state.mode).map(g=>g.course))].sort((a,b)=>a-b);
- $('courseTabs').innerHTML=query?`<span class="muted">${esc(t('searchAll'))}</span>`:courses.map(course=>`<button class="pill ${course===state.course?'on':''}" data-action="course" data-value="${course}">${esc(t('course',{n:course}))}</button>`).join('');
- const normalize=x=>x.toLocaleLowerCase('ru-RU').replace(/[^\p{L}\p{N}]/gu,'');const matches=query?all.filter(g=>`${g.label} ${g.key}`.toLocaleLowerCase('ru-RU').includes(query)||normalize(`${g.label} ${g.key}`).includes(normalize(query))):all.filter(g=>g.mode===state.mode&&g.course===state.course);
- $('groupChoices').innerHTML=matches.length?matches.map(g=>`<button class="choice ${g.key===state.group?'on':''}" data-action="selectGroup" data-value="${g.key}"><strong>${esc(g.label)}</strong><small>${esc(t('course',{n:g.course}))} · ${esc(t(modeKey(g.mode)))}</small></button>`).join(''):`<p class="muted">${esc(t('noGroups'))}</p>`;
+ $('courseTabs').innerHTML=query?`<span class="muted">${esc(t('searchAll'))}</span>`:courses.map(course=>`<button class="pill ${course===state.course?'on':''}" data-action="course" data-value="${course}" aria-pressed="${course===state.course}">${esc(t('course',{n:course}))}</button>`).join('');
+ const normalize=x=>x.toLocaleLowerCase('ru-RU').replace(/[^\p{L}\p{N}]/gu,'');
+ const tokens=query.split(/\s+/).map(normalize).filter(Boolean);
+ const matches=query?all.filter(g=>{const searchable=normalize(`${g.label} ${g.key} ${g.course} ${t('course',{n:g.course})} ${g.mode} ${t(modeKey(g.mode))}`);return tokens.every(token=>searchable.includes(token))}):all.filter(g=>g.mode===state.mode&&g.course===state.course);
+ for(const [id,keys,title] of [['pinnedGroupChoices',state.pinned,'pinnedGroups'],['recentGroupChoices',state.recent.filter(key=>!state.pinned.includes(key)),'recentGroups']]){
+  const el=$(id);el.hidden=!!query||!keys.length;el.innerHTML=el.hidden?'':`<h3>${esc(t(title))}</h3><div class="grid">${keys.map(groupChoice).join('')}</div>`;
+ }
+ $('allGroupsHeading').textContent=t('allGroupChoices');$('allGroupsHeading').hidden=!!query;
+ $('groupResultsCount').textContent=t('groupsFound',{n:matches.length});
+ $('groupChoices').innerHTML=matches.length?matches.map(g=>groupChoice(g.key)).join(''):`<p class="muted">${esc(t('noGroups'))}</p>`;
 }
 const teacherDirectoryCache=new Map();
 function allTeachers(){
@@ -309,11 +591,21 @@ function renderTeacherChoices(){
  $('teacherList').innerHTML=matches.length?matches.map(person=>`<button class="choice teacher-card" data-action="copyText" data-value="${esc(person.name)}"><strong>${esc(person.name)}</strong><small>${esc([...person.subjects].join(' · '))}</small><span class="teacher-groups">${[...person.groups].sort((a,b)=>(DATA.labels[a]||a).localeCompare(DATA.labels[b]||b,'ru',{numeric:true})).map(key=>`<span>${esc(DATA.labels[key]||key)}</span>`).join('')}</span></button>`).join(''):`<p class="muted">${esc(t('noTeachers'))}</p>`;
 }
 function selectLanguage(code){if(!I18N[code])return;state.lang=code;state.languageChosen=true;save('bashgau_lang_v1',code);$('onboard').hidden=true;closeModal();render()}
-function selectGroup(key){if(!DATA.groups[key])return;state.group=key;state.groupLock='';save('bash_grp',key);save('bash_glock','');state.openCard=-1;state.groupQuery='';closeModal();render(true)}
+function selectGroup(key){
+ if(!DATA.groups[key])return;
+ state.group=key;save('bash_grp',key);rememberRecent(key);
+ state.subgroup=Object.hasOwn(state.subgroupPrefs,key)?validSubgroup(state.subgroupPrefs[key]):0;
+ save('aip_sg',state.subgroup);state.openCard=-1;state.groupQuery='';state.query='';$('lessonSearch').value='';
+ if(state.modal)closeModal();render(true);
+}
 function setTheme(id){if(!THEMES.some(([key])=>key===id))return;state.theme=id;save('bash_theme',id);render();renderModal();$('modalBody').querySelector(`[data-action="theme"][data-value="${id}"]`)?.focus({preventScroll:true})}
 function setDay(day){state.day=+day;state.openCard=-1;render(true)}
 function setWeek(week){state.week=Math.max(1,Math.min(MAX_WEEK,+week));state.openCard=-1;render(true)}
-function setSubgroup(subgroup){state.subgroup=+subgroup;save('aip_sg',state.subgroup);state.openCard=-1;render(true)}
+function setSubgroup(subgroup){
+ state.subgroup=validSubgroup(subgroup);save('aip_sg',state.subgroup);state.openCard=-1;
+ if(subgroupSaved()){state.subgroupPrefs[state.group]=state.subgroup;jsonSave('bash_subgroup_prefs_v2',state.subgroupPrefs)}
+ render(true);
+}
 async function copyText(text){try{await navigator.clipboard.writeText(text)}catch{const el=document.createElement('textarea');el.value=text;document.body.append(el);el.select();document.execCommand('copy');el.remove()}toast(t('copied'))}
 function scheduleText(){const rows=matchingRows(),date=localeDate(dateOf(state.week,state.day));return `${t('app')} · ${DATA.labels[state.group]} · ${t('week',{n:state.week})} · ${date}\n`+(rows.length?rows.map(row=>`${t('pair',{n:row[1]})} ${row[9]}–${row[10]} · ${subject(row)}${row[7]?` · ${row[7]} ${t('sgShort')}`:''} · ${t('room')}: ${room(row[4])}`).join('\n'):t('noLessons'))}
 function offlineSnapshot(){
@@ -328,7 +620,7 @@ let offlineMode=location.protocol==='file:'?'file':'loading',installPrompt=null;
 function refreshOfflineHint(){
  const ready=offlineMode==='ready'||offlineMode==='file';
  const key=offlineMode==='file'?'offlineFile':offlineMode==='loading'?'offlineLoading':ready?(navigator.onLine===false?'offlineDisconnected':'offlineReady'):'offlineHelp';
- $('offlineLabel').textContent=t(key);$('offlineShortcut').classList.toggle('ready',ready);$('offlineShortcut').setAttribute('aria-label',t('offlineTitle')+' · '+t(key));
+ $('offlineLabel').textContent=t(key);if($('dataInfo')){const date=new Intl.DateTimeFormat(LOCALES[state.lang],{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(SCHEDULE_RELEASE+'T12:00:00Z'));$('dataInfo').textContent=t('dataVersion',{date})+' · '+t(navigator.onLine===false?'usingSaved':'allGroupsSaved')}$('offlineShortcut').classList.toggle('ready',ready);$('offlineShortcut').setAttribute('aria-label',t('offlineTitle')+' · '+t(key));
  const detail=$('offlineModalState');if(detail)detail.textContent=t(offlineMode==='file'?'offlineFileHint':offlineMode==='ready'?'offlineReadyHint':offlineMode==='loading'?'offlineLoadingHint':'offlineUnavailable');
 }
 async function setupOffline(){
@@ -343,13 +635,13 @@ async function setupOffline(){
    const changed=()=>{if(worker.state==='activated'){clearTimeout(timeout);worker.removeEventListener('statechange',changed);resolve()}else if(worker.state==='redundant'){clearTimeout(timeout);worker.removeEventListener('statechange',changed);reject(new Error('Offline installation failed'))}};
    worker.addEventListener('statechange',changed);changed();
   });
-  offlineMode='ready';
+  offlineMode='ready';notifyScheduleChanges(initialChanges);
  }catch{offlineMode='unavailable'}
  refreshOfflineHint();
 }
 window.addEventListener('online',refreshOfflineHint);window.addEventListener('offline',refreshOfflineHint);
-window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;if(state.modal==='offline')renderModal()});
-window.addEventListener('appinstalled',()=>{installPrompt=null;toast(t('installed'));if(state.modal==='offline')renderModal()});
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;renderInstallButton();if(state.modal==='offline')renderModal()});
+window.addEventListener('appinstalled',()=>{installPrompt=null;renderInstallButton();toast(t('installed'));if(state.modal==='offline')renderModal()});
 document.addEventListener('click',async event=>{const target=event.target.closest('[data-action]');if(!target)return;const action=target.dataset.action,value=target.dataset.value;
  switch(action){
  case 'menu':openModal('menu');break;case 'close':closeModal();break;case 'groups':{const info=groupInfo(state.group);state.mode=info.mode;state.course=info.course;state.groupQuery='';openModal('groups');break}
@@ -358,24 +650,31 @@ document.addEventListener('click',async event=>{const target=event.target.closes
  case 'selectGroup':selectGroup(value);break;
  case 'setLanguage':selectLanguage(value);break;case 'language':openModal('language');break;
  case 'themes':openModal('themes');break;case 'theme':setTheme(value);break;
- case 'pinGroup':state.groupLock=state.groupLock?'':state.group;save('bash_glock',state.groupLock);renderModal();break;
- case 'pinSubgroup':state.subgroupLock=state.subgroupLock?0:state.subgroup||1;if(state.subgroupLock)state.subgroup=state.subgroupLock;save('bash_sg_lock',state.subgroupLock);render();renderModal();break;
+ case 'pinGroup':toggleGroupPin();break;
+ case 'toggleFavorite':toggleGroupPin(value);break;
+ case 'pinSubgroup':toggleSubgroupPin();break;
+ case 'support':case 'accessibility':case 'updates':openModal(action);break;
+ case 'textSize':state.textSize=value==='large'?'large':'comfortable';save('bash_text_size_v1',state.textSize);render();renderAccessibility();break;
+ case 'notifications':await toggleNotifications();break;
+ case 'dismissUpdate':state.updateDismissed=true;if(state.changeDate)save('bash_changes_dismissed_v1',state.changeDate);state.newVersion=false;renderUpdateBanner();break;
+ case 'reloadVersion':reloadVersion();break;
+ case 'copyDiagnostic':await copyText([t('app'),DATA.labels[state.group],t('week',{n:state.week}),subgroupName(),APP_RELEASE].join(' · '));break;
  case 'prevWeek':setWeek(state.week-1);break;case 'nextWeek':setWeek(state.week+1);break;
  case 'day':setDay(value);break;case 'subgroup':setSubgroup(value);break;
  case 'week':openModal('week');break;case 'selectWeek':setWeek(value);closeModal();break;case 'currentWeek':setWeek(currentWeek());closeModal();break;
  case 'today':state.query='';$('lessonSearch').value='';setWeek(currentWeek());setDay(Math.min(today(),6));break;
  case 'search':$('searchBox').hidden=!$('searchBox').hidden;if(!$('searchBox').hidden)$('lessonSearch').focus();break;
- case 'clearSearch':state.query='';$('lessonSearch').value='';renderCards(true);$('summaryTitle').textContent=localeDate(dateOf(state.week,state.day));break;
+ case 'clearSearch':state.query='';$('lessonSearch').value='';renderCards(true);$('summaryTitle').textContent=localeDate(dateOf(state.week,state.day));renderFilterSummary();break;
  case 'expand':{const rows=matchingRows();const row=rows[+target.dataset.index];state.openCard=row&&state.openCard!==rowId(row)?rowId(row):-1;renderCards();$('cards').querySelector(`[data-index="${target.dataset.index}"]`)?.focus({preventScroll:true});break}
  case 'share':{const text=scheduleText();if(navigator.share)try{await navigator.share({title:t('app'),text})}catch{}else await copyText(text);break}
  case 'copy':await copyText(scheduleText());break;case 'copyText':await copyText(value);break;
  case 'notes':case 'teachers':case 'bells':case 'offline':openModal(action);break;
- case 'install':if(installPrompt){const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();await prompt.userChoice}catch{}if(state.modal==='offline')renderModal()}break;
+ case 'install':if(!installPrompt){openModal('offline');break}if(installPrompt){const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();await prompt.userChoice}catch{}renderInstallButton();if(state.modal==='offline')renderModal()}break;
  case 'deleteNote':del(value);toast(t('deleted'));renderModal();renderCards();break;
  case 'download':download();break;
  }
 });
-document.addEventListener('input',event=>{if(event.target.id==='lessonSearch'){state.query=event.target.value;state.openCard=-1;renderCards(true);$('summaryTitle').textContent=state.query?t('search'):localeDate(dateOf(state.week,state.day))}
+document.addEventListener('input',event=>{if(event.target.id==='lessonSearch'){state.query=event.target.value;state.openCard=-1;renderCards(true);$('summaryTitle').textContent=state.query?t('search'):localeDate(dateOf(state.week,state.day));renderFilterSummary()}
  else if(event.target.id==='groupSearch'){state.groupQuery=event.target.value;renderGroupChoices()}
  else if(event.target.id==='teacherSearch'){state.teacherQuery=event.target.value;renderTeacherChoices()}
  else if(event.target.id==='noteText'){const row=matchingRows()[+event.target.dataset.noteIndex];if(row){const value=event.target.value.trim();value?save(noteKey(row),value):del(noteKey(row))}}
@@ -386,6 +685,199 @@ document.addEventListener('keydown',event=>{
  if(event.key==='Escape'&&overlay===$('modal')){event.preventDefault();closeModal();return}
  if(event.key==='Tab'){const items=[...overlay.querySelectorAll('button:not([disabled]),input,select,textarea,a[href],[tabindex="0"]')].filter(el=>!el.hidden&&el.getClientRects().length);if(!items.length)return;const first=items[0],last=items[items.length-1];if(event.shiftKey&&(document.activeElement===first||!items.includes(document.activeElement))){event.preventDefault();last.focus()}else if(!event.shiftKey&&(document.activeElement===last||!items.includes(document.activeElement))){event.preventDefault();first.focus()}}
 });
+const APP_RELEASE='2026-10-23.2';
+const SCHEDULE_RELEASE='2026-10-23';
+const SUPPORT_LINKS={telegram:'https://t.me/csenchis',max:'https://max.ru/u/f9LHodD0cOLBig0ncSmZu-eTLwPD-Hm-RjLt9f2f7IFpYJJtNziGpqJPshc'};
+const jsonRead=(key,fallback)=>{try{return JSON.parse(read(key))??fallback}catch{return fallback}};
+const jsonSave=(key,value)=>save(key,JSON.stringify(value));
+const validSubgroup=value=>[0,1,2].includes(Number(value))?Number(value):0;
+const favoriteGroups=jsonRead('bash_favorite_groups_v2',null);
+state.pinned=Array.isArray(favoriteGroups)?[...new Set(favoriteGroups)].filter(key=>DATA.groups[key]):DATA.groups[state.groupLock]?[state.groupLock]:[];
+state.recent=jsonRead('bash_recent_groups_v2',[]);
+if(!Array.isArray(state.recent))state.recent=[];
+state.recent=state.recent.filter(key=>DATA.groups[key]);
+state.subgroupPrefs=jsonRead('bash_subgroup_prefs_v2',{});
+if(!state.subgroupPrefs||typeof state.subgroupPrefs!=='object'||Array.isArray(state.subgroupPrefs))state.subgroupPrefs={};
+if(!read('bash_subgroups_migrated_v2')&&state.subgroupLock){state.subgroupPrefs[state.group]=validSubgroup(state.subgroupLock);jsonSave('bash_subgroup_prefs_v2',state.subgroupPrefs);save('bash_subgroups_migrated_v2','1')}
+state.subgroup=Object.hasOwn(state.subgroupPrefs,state.group)?validSubgroup(state.subgroupPrefs[state.group]):validSubgroup(state.subgroup);
+state.textSize=read('bash_text_size_v1')==='large'?'large':'comfortable';
+state.notifications=read('bash_change_notifications')==='1';
+state.changes=[];
+state.newVersion=false;
+state.updateDismissed=false;
+function rememberRecent(key){state.recent=[key,...state.recent.filter(item=>item!==key)].slice(0,6);jsonSave('bash_recent_groups_v2',state.recent)}
+rememberRecent(state.group);
+function subgroupName(value=state.subgroup){return t(value===1?'first':value===2?'second':'allGroups')}
+function groupPinned(key=state.group){return state.pinned.includes(key)}
+function subgroupSaved(){return Object.hasOwn(state.subgroupPrefs,state.group)}
+function persistPins(){jsonSave('bash_favorite_groups_v2',state.pinned);state.groupLock=state.pinned[0]||'';save('bash_glock',state.groupLock)}
+function toggleGroupPin(key=state.group){
+ if(!DATA.groups[key])return;
+ const pinned=groupPinned(key);state.pinned=pinned?state.pinned.filter(item=>item!==key):[...state.pinned,key];persistPins();
+ renderQuickGroups();renderGroupButton();
+ if(state.modal==='groups')renderGroupChoices();else if(state.modal==='menu')renderModal();
+ toast(t(pinned?'groupUnpinned':'groupPinned',{group:DATA.labels[key]}));
+}
+function toggleSubgroupPin(){
+ const saved=subgroupSaved();
+ if(saved)delete state.subgroupPrefs[state.group];else state.subgroupPrefs[state.group]=state.subgroup;
+ jsonSave('bash_subgroup_prefs_v2',state.subgroupPrefs);save('bash_sg_lock','0');
+ renderFilterSummary();if(state.modal==='menu')renderModal();toast(t(saved?'filterUnsaved':'filterSaved',{filter:subgroupName()}));
+}
+function renderGroupButton(){
+ const button=$('groupButton');
+ button.innerHTML=`<span class="group-monogram">${uiIcon('groups')}</span><span class="group-copy"><strong>${esc(DATA.labels[state.group])}${groupPinned()?' <span class="group-pin-mark" aria-hidden="true">★</span>':''}</strong><small>${esc(t('course',{n:groupInfo(state.group).course}))} · ${esc(t(modeKey(groupInfo(state.group).mode)))}</small></span><span class="chevron">${uiIcon('chevronDown')}</span>`;
+ button.setAttribute('aria-label',t('chooseGroup')+' · '+DATA.labels[state.group]);
+}
+function renderQuickGroups(){
+ const element=$('quickGroups');element.hidden=!state.pinned.length;element.setAttribute('aria-label',t('pinnedGroups'));
+ element.innerHTML=state.pinned.map(key=>`<button class="quick-group ${key===state.group?'on':''}" data-action="selectGroup" data-value="${esc(key)}" aria-pressed="${key===state.group}">${uiIcon('star')}<span>${esc(DATA.labels[key])}</span></button>`).join('');
+}
+function renderFilterSummary(){
+ const rows=matchingRows(),all=matchingRows(state.week,state.day,'',0),saved=subgroupSaved();
+ const different=all.some(row=>row[7]!==0),hasSubgroups=DATA.groups[state.group].some(row=>row[7]!==0);
+ const lines=[state.subgroup===0?t('filterAll'):t('filterSelected',{filter:subgroupName()})];
+ if(!state.query&&!different)lines.push(t(hasSubgroups?'onlyCommonToday':'noSplitInSource'));
+ if(state.subgroup&&all.length&&!rows.length)lines.push(t('noSubgroupToday'));
+ if(saved)lines.push(t('savedForGroup'));
+ $('filterSummary').textContent=lines.join(' · ');
+ $('rememberSubgroup').setAttribute('aria-pressed',String(saved));
+ $('rememberSubgroup').setAttribute('aria-label',t(saved?'unpinSubgroup':'pinSubgroup')+' · '+subgroupName());
+ $('rememberSubgroup').innerHTML=uiIcon('bookmark');
+}
+function renderUtilities(){
+ document.documentElement.dataset.textSize=state.textSize;
+ $('supportButton').innerHTML=uiIcon('support');$('supportButton').setAttribute('aria-label',t('support'));
+ $('quickToday').innerHTML=uiIcon('today')+`<span>${esc(t('today'))}</span>`;
+ const date=new Intl.DateTimeFormat(LOCALES[state.lang],{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(SCHEDULE_RELEASE+'T12:00:00Z'));
+ $('dataInfo').textContent=t('dataVersion',{date})+' · '+t(navigator.onLine===false?'usingSaved':'allGroupsSaved');
+ renderGroupButton();renderQuickGroups();renderFilterSummary();renderInstallButton();renderUpdateBanner();
+}
+function renderInstallButton(){
+ const installed=window.matchMedia?.('(display-mode: standalone)').matches||navigator.standalone===true;
+ $('installShortcut').hidden=installed||!installPrompt;
+ $('installShortcut').innerHTML=uiIcon('download')+`<span>${esc(t('installApp'))}</span>`;
+}
+function groupChoice(key){
+ const g={key,label:DATA.labels[key],...groupInfo(key)},pinned=groupPinned(key),saved=Object.hasOwn(state.subgroupPrefs,key);
+ return `<div class="group-entry"><button class="choice ${key===state.group?'on':''}" data-action="selectGroup" data-value="${esc(key)}" aria-pressed="${key===state.group}"><strong>${esc(g.label)}</strong><small>${esc(t('course',{n:g.course}))} · ${esc(t(modeKey(g.mode)))}</small>${saved?`<small class="saved-badge">${esc(t('savedFilter',{filter:subgroupName(validSubgroup(state.subgroupPrefs[key]))}))}</small>`:''}</button><button class="pin-choice" data-action="toggleFavorite" data-value="${esc(key)}" aria-pressed="${pinned}" aria-label="${esc(t(pinned?'unpinGroup':'pinGroup'))} · ${esc(g.label)}">${uiIcon('star')}</button></div>`;
+}
+function renderSupport(){
+ $('modalTitle').textContent=t('support');
+ $('modalBody').innerHTML=`<p class="muted">${esc(t('supportHint'))}</p><a class="menu-item" href="${SUPPORT_LINKS.telegram}" target="_blank" rel="noopener noreferrer"><span>${uiIcon('support')} Telegram · @csenchis</span>${uiIcon('arrowUpRight')}</a><a class="menu-item" href="${SUPPORT_LINKS.max}" target="_blank" rel="noopener noreferrer"><span>${uiIcon('support')} MAX</span>${uiIcon('arrowUpRight')}</a><button class="menu-item" data-action="copyDiagnostic"><span>${uiIcon('copy')}${esc(t('copyDetails'))}</span></button><p class="muted">${esc(t('supportPrivacy'))}</p>`;
+}
+function renderAccessibility(){
+ $('modalTitle').textContent=t('displaySettings');
+ $('modalBody').innerHTML=`<h3>${esc(t('textSize'))}</h3><div class="grid">${[['comfortable','textComfortable'],['large','textLarge']].map(([id,key])=>`<button class="choice ${state.textSize===id?'on':''}" data-action="textSize" data-value="${id}" aria-pressed="${state.textSize===id}"><strong>${esc(t(key))}</strong><small>${esc(t(id==='large'?'textLargeHint':'textComfortableHint'))}</small></button>`).join('')}</div><p class="muted">${esc(t('motionHint'))}</p>`;
+}
+function rowFingerprint(row){return JSON.stringify(row.slice(0,11))}
+function inspectScheduleChanges(){
+ const previous=jsonRead('bash_schedule_snapshot_v1',{}),changes=[];
+ for(const [group,rows] of Object.entries(DATA.groups)){
+  const current=rows.map(row=>[row[0],row[1],row[2],DATA.subjects[row[3]],row[4],DATA.teachers[row[5]],row[6],row[7],row[8],row[9],row[10]]);
+  const old=Array.isArray(previous[group])?previous[group]:null;
+  if(old){const oldKeys=new Set(old.map(rowFingerprint)),newKeys=new Set(current.map(rowFingerprint));
+   for(const row of current)if(!oldKeys.has(rowFingerprint(row)))changes.push({group,kind:'added',row});
+   for(const row of old)if(!newKeys.has(rowFingerprint(row)))changes.push({group,kind:'removed',row});
+  }
+  previous[group]=current;
+ }
+ jsonSave('bash_schedule_snapshot_v1',previous);
+ const history=jsonRead('bash_schedule_changes_v1',null);
+ if(changes.length){state.changes=changes;state.changeDate=new Date().toISOString();jsonSave('bash_schedule_changes_v1',{changes,date:state.changeDate});del('bash_changes_dismissed_v1')}
+ else if(history&&Array.isArray(history.changes)){state.changes=history.changes;state.changeDate=history.date}
+ state.updateDismissed=read('bash_changes_dismissed_v1')===state.changeDate;
+ return changes;
+}
+function relevantChanges(){return state.changes.filter(item=>item.group===state.group)}
+function renderUpdateBanner(){
+ const items=relevantChanges(),banner=$('updateBanner');banner.hidden=(!state.newVersion&&(!items.length||state.updateDismissed));
+ $('updateDetails').dataset.action=state.newVersion?'reloadVersion':'updates';
+ $('updateDetails').innerHTML=uiIcon('bells')+`<span>${esc(t(state.newVersion?'newVersionReady':'scheduleChanged',{n:items.length,group:DATA.labels[state.group]}))}</span>`;
+ $('dismissUpdate').setAttribute('aria-label',t('closed'));
+}
+function renderUpdates(){
+ $('modalTitle').textContent=t('updates');const items=relevantChanges();
+ const enabled=state.notifications&&'Notification' in window&&Notification.permission==='granted';
+ $('modalBody').innerHTML=`<p class="muted">${esc(t('updateHint'))}</p>${state.newVersion?`<button class="primary" data-action="reloadVersion">${esc(t('newVersionReady'))}</button>`:''}<button class="menu-item" data-action="notifications" aria-pressed="${enabled}"><span class="menu-copy">${esc(t('notifyChanges'))}<small>${esc(t(enabled?'notificationsOn':'notificationsOff'))}</small></span>${uiIcon('bells')}</button><p class="muted">${esc(t('notificationScope'))}</p>${state.changeDate&&items.length?`<p class="muted">${esc(new Intl.DateTimeFormat(LOCALES[state.lang],{dateStyle:'medium',timeStyle:'short',timeZone:UFATZ}).format(new Date(state.changeDate)))}</p>`:''}${items.length?items.slice(0,80).map(item=>{const r=item.row,sid=DATA.subjects.indexOf(r[3]),name=state.lang==='ru'?r[3]:SUBJECT_TRANSLATIONS[state.lang]?.[sid]||r[3];return `<article class="change-item"><span class="change-label">${esc(t(item.kind))}</span><strong>${esc(name)}</strong><span>${esc(I18N[state.lang].longDays[r[0]-1])} · ${esc(r[9])}–${esc(r[10])} · ${esc(r[7]?subgroupName(r[7]):t('allGroups'))}</span><small>${esc(t('room'))}: ${esc(room(r[4])||'—')} · ${esc(t('weeks'))}: ${esc(r[8].join(', '))}</small></article>`}).join(''):`<div class="empty"><span class="empty-icon">${uiIcon('schedule')}</span><strong>${esc(t('noChanges'))}</strong><span>${esc(t('firstSnapshot'))}</span></div>`}`;
+}
+async function toggleNotifications(){
+ if(state.notifications){state.notifications=false;save('bash_change_notifications','0');renderUpdates();return}
+ if(!window.isSecureContext||!('Notification' in window)||!('serviceWorker' in navigator)){toast(t('notificationsUnavailable'));return}
+ try{
+  const permission=await Notification.requestPermission();
+  state.notifications=permission==='granted';save('bash_change_notifications',state.notifications?'1':'0');
+  toast(t(state.notifications?'notificationsEnabled':'notificationsDenied'));renderUpdates();
+ }catch{toast(t('notificationsUnavailable'))}
+}
+async function notifyScheduleChanges(changes){
+ const items=changes.filter(item=>item.group===state.group);
+ if(!items.length||!state.notifications||!('Notification' in window)||Notification.permission!=='granted'||!('serviceWorker' in navigator))return;
+ try{const registration=await navigator.serviceWorker.getRegistration();if(registration?.active)await registration.showNotification(t('app'),{body:t('scheduleChanged',{group:DATA.labels[state.group],n:items.length}),icon:'./icon-192.png',badge:'./icon-192.png',tag:'bashgau-schedule-'+state.group,data:{url:new URL('./',location.href).href}})}catch{}
+}
+let lastVersionCheck=0,versionChecking=false;
+async function checkNewVersion(){
+ if(versionChecking||document.hidden||navigator.onLine===false||location.protocol==='file:'||Date.now()-lastVersionCheck<60000)return;
+ versionChecking=true;lastVersionCheck=Date.now();
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),8000);
+ try{const response=await fetch('./index.html',{cache:'no-store',signal:controller.signal});if(!response.ok)return;const source=await response.text(),version=source.match(/<meta name="app-version" content="([^"]+)"/);if(version&&version[1]!==APP_RELEASE){state.newVersion=true;renderUpdateBanner()}}
+ catch{}finally{versionChecking=false;clearTimeout(timeout)}
+}
+function reloadVersion(){location.reload()}
+function initializeGestures(){
+ const modal=$('modal'),panel=modal.querySelector('.panel'),body=$('modalBody');let drag=null,ignoreUntil=0;
+ const clear=()=>{panel.style.removeProperty('transform');panel.style.removeProperty('transition');panel.style.removeProperty('animation');panel.style.removeProperty('--sheet-offset')};
+ modal.addEventListener('touchstart',event=>{
+  ignoreUntil=0;
+  if(!matchMedia('(max-width:760px)').matches||event.touches.length!==1||event.target.closest('input,textarea,select')||!panel.contains(event.target))return;
+  const touch=event.touches[0];drag={x:touch.clientX,y:touch.clientY,at:performance.now(),active:false,dy:0,eligible:!!event.target.closest('.sheet-grip,.panel-head')||body.scrollTop<=1};
+ },{passive:true});
+ modal.addEventListener('touchmove',event=>{
+  if(!drag||event.touches.length!==1||!drag.eligible)return;
+  const touch=event.touches[0],dx=touch.clientX-drag.x,dy=touch.clientY-drag.y;
+  if(!drag.active){if(Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)){drag=null;return}if(dy<-10){drag=null;return}if(dy<10||dy<Math.abs(dx)*1.3)return;drag.active=true;panel.style.animation='none';panel.style.transition='none'}
+  drag.dy=Math.max(0,dy);if(event.cancelable)event.preventDefault();panel.style.transform=`translateY(${drag.dy*.9}px)`;
+ },{passive:false});
+ const finish=cancelled=>{
+  if(!drag)return;const value=drag;drag=null;if(!value.active)return;
+  ignoreUntil=performance.now()+350;const velocity=value.dy/Math.max(1,performance.now()-value.at);
+  if(!cancelled&&(value.dy>90||(value.dy>45&&velocity>.5))){panel.style.setProperty('--sheet-offset',value.dy*.9+'px');panel.style.removeProperty('transform');panel.style.removeProperty('animation');closeModal();setTimeout(clear,260)}
+  else{panel.style.transition=reducedMotion()?'none':'transform .3s cubic-bezier(.22,1,.36,1)';panel.style.transform='translateY(0)';setTimeout(clear,320)}
+ };
+ modal.addEventListener('touchend',()=>finish(false),{passive:true});modal.addEventListener('touchcancel',()=>finish(true),{passive:true});
+ modal.addEventListener('click',event=>{if(performance.now()<ignoreUntil){event.preventDefault();event.stopImmediatePropagation()}},true);
+ let swipe=null,surfaceIgnoreUntil=0;
+ const surface=$('appShell');
+ surface.addEventListener('touchstart',event=>{
+  surfaceIgnoreUntil=0;
+  if(event.touches.length!==1||!event.target.closest('.agenda,.day-nav')||event.target.closest('input,textarea,select,.subgroup-tools'))return;
+  swipe={x:event.touches[0].clientX,y:event.touches[0].clientY,at:performance.now()};
+ },{passive:true});
+ surface.addEventListener('touchend',event=>{
+  if(!swipe)return;const start=swipe;swipe=null;if(!event.changedTouches.length)return;
+  const touch=event.changedTouches[0],dx=touch.clientX-start.x,dy=touch.clientY-start.y;
+  if(performance.now()-start.at>1000||Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.7)return;
+  surfaceIgnoreUntil=performance.now()+350;moveDay(dx<0?1:-1);
+ },{passive:true});
+ surface.addEventListener('touchcancel',()=>{swipe=null},{passive:true});
+ surface.addEventListener('click',event=>{if(performance.now()<surfaceIgnoreUntil){event.preventDefault();event.stopImmediatePropagation()}},true);
+ $('dayNav').addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();moveDay(event.key==='ArrowRight'?1:-1);$('dayNav').querySelector('[aria-pressed="true"]')?.focus()});
+}
+function moveDay(direction){
+ if(state.query){state.query='';$('lessonSearch').value=''}
+ let day=state.day+direction,week=state.week;
+ if(day>6){if(week>=MAX_WEEK)return;day=1;week++}else if(day<1){if(week<=1)return;day=6;week--}
+ state.week=week;setDay(day);
+}
+
+const initialChanges=inspectScheduleChanges();
+initializeGestures();
+setInterval(checkNewVersion,300000);
+if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',event=>{if(event.data?.type==='OPEN_SCHEDULE_CHANGES')openModal('updates')});
+if(new URLSearchParams(location.search).get('changes')==='1'&&state.languageChosen){setTimeout(()=>openModal('updates'),350);history.replaceState(null,'',location.pathname+location.hash)}
+window.addEventListener('online',checkNewVersion);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkNewVersion()});
+
 const brandImage=$('brandIcon');brandImage.addEventListener('load',()=>{brandImage.hidden=false;$('brandFallback').hidden=true});brandImage.addEventListener('error',()=>{brandImage.hidden=true;$('brandFallback').hidden=false});brandImage.src='./icon.png';
 render(true);
 if(!state.languageChosen){$('onboardLanguages').innerHTML=languageChoices();$('onboard').hidden=false;syncOverlays()}
